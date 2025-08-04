@@ -84,5 +84,12 @@ This project is a new version of our interface, integrating several innovative s
     pip install -r requirements.txt
     ```
 
+
+4. Start project:
+    ```bash
+    cd kaddo_interface
+    python manage.py runserver
+    ```
+
 ---
 
