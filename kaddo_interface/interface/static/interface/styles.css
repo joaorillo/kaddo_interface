@@ -1,3 +1,110 @@
-.main-body-div {
-    padding-top: 56px;
+:root {
+    /* Brand colors */
+    --color-brand-red:    #ff5757;
+    --color-brand-black:  #000000;
+    --color-brand-yellow: #ffd80d;
+
+    /* Grayscale */
+    --color-gray-100: #f8f9fa;
+    --color-gray-200: #e9ecef;
+    --color-gray-300: #dee2e6;
+    --color-gray-400: #ced4da;
+    --color-gray-500: #adb5bd;
+    --color-gray-600: #6c757d;
+    --color-gray-700: #495057;
+    --color-gray-800: #343a40;
+    --color-gray-900: #212529;
+
+    /* User interaction */
+    --color-hover: var(--color-brand-red);
+
+    /* Feedback colors */
+    --color-success: #28a745;
+    --color-warning: #ffc107;
+    --color-danger:  #dc3545;
+    --color-info:    #17a2b8;
+
+    /* Typography */
+    --font-color: var(--color-gray-900);
+    --background-color: var(--color-white);
+
+    /* Other variables */
+    --navbar-height: 56px;
+    --left-side-desktop: 300px;
+}
+
+
+#main-nav {
+    background-color: var(--color-gray-100);
+    height: var(--navbar-height);
+    padding: 0;
+
+    #main-nav-container{
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: stretch;
+        height: 100%;
+
+        #logo-container-big {
+            width: var(--left-side-desktop);
+            height: 100%;
+            background-color: var(--color-brand-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            #logo-container-small{
+                width: 140px;
+                height: 100%;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                #brand-logo-anchor{
+                    width: 100px;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 0;
+
+                    #brand-logo-img {
+                        width: 100px;
+                        height: auto;
+                    }
+                }
+            }
+        }
+
+        #icons-container{
+            margin-left: auto;
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            #my-profile-icon {
+                color: black;
+            }
+
+            #my-profile-icon:hover {
+                color: var(--color-hover);
+            }
+        }
+    }
+}
+
+#main-body-container {
+    #main-sidebar {
+        position: fixed;
+        top: var(--navbar-height);
+        left: 0;
+        width: var(--left-side-desktop);
+        height: calc(100vh - var(--navbar-height));
+        background-color: var(--color-gray-100);
+        padding: 1rem;
+        overflow-y: auto;
+    }
 }
