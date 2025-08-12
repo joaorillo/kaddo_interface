@@ -1,23 +1,80 @@
+let searchBar;
+let searchBarInput;
+let closeSearchIcon;
+let sidebar;
+let sidebarReopenIcon;
+let categoriesColumn;
+
+
 document.addEventListener('DOMContentLoaded', () => {
-    var aisles_names = document.querySelectorAll('.aisle-name');
-    aisles_names.forEach((aisle) => {
-        var aisle_name = aisle.innerHTML;
+    // User clicks on an aisle on sidebar
+    const aislesNames = document.querySelectorAll('.aisle-name');
+    aislesNames.forEach((aisle) => {
+        var aisleName = aisle.innerHTML;
         aisle.addEventListener('click', () => {
-            console.log(`scroll_aisle(${aisle_name})`);
-            scroll_aisle(aisle_name);
+            console.log(`scroll_aisle(${aisleName})`);
+            scroll_aisle(aisleName);
         })
+    })
+
+    // Search bar input clicked / Close search icon clicked
+    searchBar = document.getElementById('search-bar');
+    searchBarInput = document.getElementById('search-bar-input');
+    closeSearchIcon = document.getElementById('close-search-icon');
+    sidebar = document.getElementById('sidebar');
+    sidebarReopenIcon = document.getElementById('sidebar-reopen-icon');
+    categoriesColumn = document.getElementById('categories-column');
+    searchBar.addEventListener('click', () => {
+        searchBarInput.focus();
+        if (!sidebar.classList.contains('minimized')) {
+            toggleSearch();
+        }
+    })
+    closeSearchIcon.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevents the click from bubbling up to #search-bar
+        if (sidebar.classList.contains('minimized')) {
+            toggleSearch();
+        }
+    })
+    sidebarReopenIcon.addEventListener('click', () => {
+        if (sidebar.classList.contains('minimized')) {
+            toggleSearch();
+        }
     })
 })
 
 
-function scroll_aisle(aisle_name) {
-    var selected_aisle = document.querySelector('.aisle-name.selected');
-    if (selected_aisle){
-        selected_aisle.classList.remove('selected');
+// Scrolls to a given aisle
+function scroll_aisle(aisleName) {
+    var selectedAisle = document.querySelector('.aisle-name.selected');
+    if (selectedAisle){
+        selectedAisle.classList.remove('selected');
     }
-    var clicked_aisle = Array.from(document.querySelectorAll('.aisle-name'))
-        .find(el => el.innerHTML.trim() === aisle_name);
-    if (clicked_aisle) {
-        clicked_aisle.classList.add('selected');
+    var clickedAisle = Array.from(document.querySelectorAll('.aisle-name'))
+        .find(el => el.innerHTML.trim() === aisleName);
+    if (clickedAisle) {
+        clickedAisle.classList.add('selected');
+    }
+}
+
+
+// Toggles a given class from a given element
+function toggleClass(element, className) {
+    if (element.classList.contains(className)) {
+        element.classList.remove(className);
+    } else {
+        element.classList.add(className);
+    }
+}
+
+
+// Toggles between 'default view' and 'search view'
+function toggleSearch() {
+    toggleClass(sidebar, 'minimized');
+    toggleClass(categoriesColumn, 'maximized');
+    toggleClass(closeSearchIcon, 'd-none');
+    toggleClass(sidebarReopenIcon, 'd-none');
+    if (sidebar.classList.contains('minimized')) {
+        searchBarInput.value = '';
     }
 }

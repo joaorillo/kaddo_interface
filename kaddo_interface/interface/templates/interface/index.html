@@ -7,29 +7,45 @@
 {% block body %}
 <div id="main-body-container">
     <div id="sidebar">
-        <h4 id="aisles-title">Corredores</h4>
-        <hr>
-        <a class="aisle-name selected" href="#">Temperos e Condimentos</a>
-        <a class="aisle-name" href="#">Óleos e Vinagres</a>
-        <a class="aisle-name" href="#">Conservas e Semiprontos</a>
-        <a class="aisle-name" href="#">Café e Chá</a>
-        <a class="aisle-name" href="#">Massas</a>
-        <a class="aisle-name" href="#">Grãos e Cereais</a>
-        <a class="aisle-name" href="#">Confeitaria</a>
-        <a class="aisle-name" href="#">Snacks</a>
-        <a class="aisle-name" href="#">Padaria</a>
-        <a class="aisle-name" href="#">Fiambreria</a>
-        <a class="aisle-name" href="#">Laticínios e Resfriados</a>
-        <a class="aisle-name" href="#">Carnes</a>
-        <a class="aisle-name" href="#">Congelados</a>
-        <a class="aisle-name" href="#">Hortifruti</a>
-        <a class="aisle-name" href="#">Bebidas sem Álcool</a>
-        <a class="aisle-name" href="#">Bebidas Alcoólicas</a>
-        <a class="aisle-name" href="#">Produtos de Limpeza</a>
-        <a class="aisle-name" href="#">Higiene e Cuidado Pessoal</a>
-        <a class="aisle-name" href="#">Cuidados com o Pet</a>
-        <a class="aisle-name" href="#">Outros Produtos</a>
+        <div id="aisle-title-container">
+            <h4 id="aisles-title">Corredores</h4>
+            <hr>
+        </div>
+        <div id="aisles-names-container">
+            <a class="aisle-name selected" href="#">Temperos e Condimentos</a>
+            <a class="aisle-name" href="#">Óleos e Vinagres</a>
+            <a class="aisle-name" href="#">Conservas e Semiprontos</a>
+            <a class="aisle-name" href="#">Café e Chá</a>
+            <a class="aisle-name" href="#">Massas</a>
+            <a class="aisle-name" href="#">Grãos e Cereais</a>
+            <a class="aisle-name" href="#">Confeitaria</a>
+            <a class="aisle-name" href="#">Snacks</a>
+            <a class="aisle-name" href="#">Padaria</a>
+            <a class="aisle-name" href="#">Fiambreria</a>
+            <a class="aisle-name" href="#">Laticínios e Resfriados</a>
+            <a class="aisle-name" href="#">Carnes</a>
+            <a class="aisle-name" href="#">Congelados</a>
+            <a class="aisle-name" href="#">Hortifruti</a>
+            <a class="aisle-name" href="#">Bebidas sem Álcool</a>
+            <a class="aisle-name" href="#">Bebidas Alcoólicas</a>
+            <a class="aisle-name" href="#">Produtos de Limpeza</a>
+            <a class="aisle-name" href="#">Higiene e Cuidado Pessoal</a>
+            <a class="aisle-name" href="#">Cuidados com o Pet</a>
+            <a class="aisle-name" href="#">Outros Produtos</a>
+        </div>
     </div>
-    <div id="categories-column"></div>
+    <i id="sidebar-reopen-icon" class="fa fa-chevron-right d-none"></i>
+    <div id="categories-column">
+        <div id="search-bar-strip">
+            <div id="search-bar">
+                <i id="search-icon" class="fa fa-search"></i>
+                <input id="search-bar-input" type="text" placeholder="Pesquisar item...">
+                <i id="close-search-icon" class="fa fa-times d-none"></i>
+            </div>
+            <div id="cart-icon-container">
+                <i id="cart-icon" class="fas fa-shopping-cart"></i>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
