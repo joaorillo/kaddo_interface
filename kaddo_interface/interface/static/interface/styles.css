@@ -28,7 +28,11 @@
     --font-color: var(--color-gray-900);
     --background-color: var(--color-white);
 
-    /* Other variables */
+    /* Default variables */
+    --default-padding-left: 30px;
+    --default-padding-right: var(--default-padding-left);
+    --default-border-radius: 10px;
+    --default-margin-right: 20px;
     --navbar-height: 56px;
     --sidebar-width: 300px;
     --sidebar-minimized-width-proportion: 0.8;
@@ -38,10 +42,7 @@
     --categories-column-maximized-left: calc(var(--sidebar-width) + var(--sidebar-minimized-left));
     --search-bar-strip-height: 65px;
     --search-bar-strip-vertical-padding: 12px;
-    --default-padding-left: 30px;
-    --default-padding-right: var(--default-padding-left);
-    --default-border-radius: 10px;
-    --default-margin-right: 20px;
+    --categories-column-width: calc(100vw - var(--sidebar-width));
 }
 
 
@@ -195,7 +196,7 @@
         position: fixed;
         top: var(--navbar-height);
         left: var(--sidebar-width);
-        width: calc(100vw - var(--sidebar-width));
+        width: var(--categories-column-width);
         height: 100%;
         transition: left 0.3s ease, width 0.3s ease;
 
@@ -277,6 +278,33 @@
                 #cart-icon {
                     color: black;
                 }
+            }
+        }
+
+        #categories-container {
+            width: var(--categories-column-width);
+            top: var(--search-bar-strip-height);
+            height: 100%;
+            padding: 0 calc(var(--default-padding-right) + 10px);
+            
+            margin-top: 30px;
+            .aisle-flag-line {
+                width: 100%;
+                border: 2px solid var(--color-gray-300);
+                margin: 0;
+            }
+
+            .aisle-flag {
+                background-color: var(--color-gray-300);
+                left: 0;
+                width: 30%;
+                min-width: 300px;
+                height: 24px;
+                border-bottom-right-radius: 20px;
+                padding: 1px 10px;
+                font-size: 12px;
+                font-weight: 500;
+                color: var(--color-gray-500);
             }
         }
     }
