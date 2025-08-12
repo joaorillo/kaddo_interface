@@ -1,4 +1,5 @@
 {% extends "interface/layout.html" %}
+{% load static %}
 
 {% block head %}
 <title>Kaddô</title>
@@ -48,7 +49,87 @@
         </div>
         <div id="categories-container">
             <hr class="aisle-flag-line">
-            <div class="aisle-flag">Temperos e Condimentos</div>
+            <div id="aisle-flag-temperos-e-condimentos" class="aisle-flag">Temperos e Condimentos</div>
+            <div class="categories-grid">
+                <div id="category-card-maionese" class="category-card">
+                    <div class="category-card-img-container">
+                        <img class="category-card-img" src="{% static 'media_dev/maionese.png' %}">
+                    </div>
+                    <div class="category-card-title-container">Maionese</div>
+                </div>
+                <div id="category-card-mostarda" class="category-card">
+                    <div class="category-card-img-container">
+                        <img class="category-card-img" src="{% static 'media_dev/mostarda.png' %}">
+                    </div>
+                    <div class="category-card-title-container">Mostarda</div>
+                </div>
+                <div id="category-card-ketchup" class="category-card">
+                    <div class="category-card-img-container">
+                        <img class="category-card-img" src="{% static 'media_dev/ketchup.png' %}">
+                    </div>
+                    <div class="category-card-title-container">Ketchup</div>
+                </div>
+                <div id="category-card-molho-de-pimenta" class="category-card">
+                    <div class="category-card-img-container">
+                        <img class="category-card-img" src="{% static 'media_dev/molho-de-pimenta.png' %}">
+                    </div>
+                    <div class="category-card-title-container">Molho de Pimenta</div>
+                </div>
+                <div id="category-card-molhos-para-salada" class="category-card">
+                    <div class="category-card-img-container">
+                        <img class="category-card-img" src="{% static 'media_dev/molhos-para-salada.png' %}">
+                    </div>
+                    <div class="category-card-title-container">Molhos para Salada</div>
+                </div>
+                <div id="category-card-ervas-e-especiaris" class="category-card">
+                    <div class="category-card-img-container">
+                        <img class="category-card-img" src="{% static 'media_dev/ervas-e-especiarias.png' %}">
+                    </div>
+                    <div class="category-card-title-container">Ervas e Especiarias</div>
+                </div>
+            </div>
+            <div class="categories-grid">
+                <div id="category-card-sopas-e-cremes" class="category-card">
+                    <div class="category-card-img-container">
+                        <img class="category-card-img" src="{% static 'media_dev/sopas-e-cremes.png' %}">
+                    </div>
+                    <div class="category-card-title-container">Sopas e Cremes</div>
+                </div>
+                <div id="category-card-outros-temperos-e-condimentos" class="category-card">
+                    <div class="category-card-img-container">
+                        <img class="category-card-img" src="{% static 'media_dev/outros-temperos-e-condimentos.png' %}">
+                    </div>
+                    <div class="category-card-title-container">Outros Temperos e Condimentos</div>
+                </div>
+            </div>
+            <hr class="aisle-flag-line">
+            <div id="aisle-flag-oleos-e-vinagres" class="aisle-flag">Óleos e Vinagres</div>
+            <div class="categories-grid">
+                <div id="category-card-oleo-de-cozinha" class="category-card">
+                    <div class="category-card-img-container">
+                        <img class="category-card-img" src="{% static 'media_dev/oleo-de-cozinha.png' %}">
+                    </div>
+                    <div class="category-card-title-container">Óleo de Cozinha</div>
+                </div>
+                <div id="category-card-oleo-de-coco" class="category-card">
+                    <div class="category-card-img-container">
+                        <img class="category-card-img" src="{% static 'media_dev/oleo-de-coco.png' %}">
+                    </div>
+                    <div class="category-card-title-container">Óleod e Coco</div>
+                </div>
+                <div id="category-card-azeites" class="category-card">
+                    <div class="category-card-img-container">
+                        <img class="category-card-img" src="{% static 'media_dev/azeites.png' %}">
+                    </div>
+                    <div class="category-card-title-container">Azeites</div>
+                </div>
+                <div id="category-card-vinagres" class="category-card">
+                    <div class="category-card-img-container">
+                        <img class="category-card-img" src="{% static 'media_dev/vinagres.png' %}">
+                    </div>
+                    <div class="category-card-title-container">Vinagres</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
