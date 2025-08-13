@@ -1,3 +1,4 @@
+let searchBarStrip;
 let searchBar;
 let searchBarInput;
 let closeSearchIcon;
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     // Search bar input clicked / Close search icon clicked
+    searchBarStrip = document.getElementById('search-bar-strip');
     searchBar = document.getElementById('search-bar');
     searchBarInput = document.getElementById('search-bar-input');
     closeSearchIcon = document.getElementById('close-search-icon');
@@ -71,6 +73,7 @@ function toggleClass(element, className) {
 // Toggles between 'default view' and 'search view'
 function toggleSearch() {
     toggleClass(sidebar, 'minimized');
+    toggleClass(searchBarStrip, 'maximized');
     toggleClass(categoriesColumn, 'maximized');
     toggleClass(closeSearchIcon, 'd-none');
     toggleClass(sidebarReopenIcon, 'd-none');
