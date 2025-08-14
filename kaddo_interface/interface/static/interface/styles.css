@@ -303,12 +303,12 @@
 
     .aisle-flag-line {
         width: 100%;
-        border: 2px solid var(--color-gray-300);
+        border: 2px solid var(--color-gray-400);
         margin: 30px 0 0 0;
     }
 
     .aisle-flag {
-        background-color: var(--color-gray-300);
+        background-color: var(--color-gray-400);
         left: 0;
         width: 30%;
         min-width: 300px;
@@ -317,7 +317,7 @@
         padding: 1px 10px;
         font-size: 12px;
         font-weight: 500;
-        color: var(--color-gray-500);
+        color: var(--color-gray-600);
     }
 
     .categories-grid {
