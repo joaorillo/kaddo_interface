@@ -316,7 +316,7 @@
         border-bottom-right-radius: 20px;
         padding: 1px 10px;
         font-size: 12px;
-        font-weight: 500;
+        font-weight: 600;
         color: var(--color-gray-600);
     }
 
@@ -350,6 +350,7 @@
                 height: auto;
                 text-align: center;
                 color: var(--color-gray-500);
+                font-weight: 600;
             }
         }
 
