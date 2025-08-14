@@ -5,7 +5,10 @@ let closeSearchIcon;
 let sidebar;
 let sidebarReopenIcon;
 let categoriesColumn;
-
+let aislesFlagsLines;
+let aislesFlags;
+let categoryCards;
+let categoryContainer;
 
 document.addEventListener('DOMContentLoaded', () => {
     // User clicks on an aisle on sidebar
@@ -26,6 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebar = document.getElementById('sidebar');
     sidebarReopenIcon = document.getElementById('sidebar-reopen-icon');
     categoriesColumn = document.getElementById('categories-column');
+    aislesFlagsLines = document.getElementsByClassName('aisle-flag-line');
+    aislesFlags = document.getElementsByClassName('aisle-flag');
+    categoryCards = document.getElementsByClassName('category-card');
+    categoryContainer = document.getElementById('category-container');
     searchBar.addEventListener('click', () => {
         searchBarInput.focus();
         if (!sidebar.classList.contains('minimized')) {
@@ -80,4 +87,14 @@ function toggleSearch() {
     if (sidebar.classList.contains('minimized')) {
         searchBarInput.value = '';
     }
+    toggleClass(categoryContainer, 'd-none');
+    Array.from(categoryCards).forEach((categoryCard) => {
+        toggleClass(categoryCard, 'd-none');
+    })
+    Array.from(aislesFlagsLines).forEach((aisleFlagLine) => {
+        toggleClass(aisleFlagLine, 'd-none');
+    })
+    Array.from(aislesFlags).forEach((aisleFlag) => {
+        toggleClass(aisleFlag, 'd-none');
+    })
 }

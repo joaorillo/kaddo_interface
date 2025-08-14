@@ -40,9 +40,16 @@
     --search-bar-strip-height: 65px;
     --search-bar-strip-width: calc(100% - var(--sidebar-width));
     --search-bar-strip-vertical-padding: 12px;
+    --search-bar-strip-maximized-padding-left: 40px;
+    --categories-column-top: calc(var(--navbar-height) + var(--search-bar-strip-height));
     --categories-column-width: var(--search-bar-strip-width);
     --categories-column-maximized-left: calc(var(--sidebar-width) + var(--sidebar-minimized-left));
     --categories-column-maximized-width: calc(100% - var(--categories-column-maximized-left));
+    --category-container-margin: 20px;
+    --category-container-top: calc(var(--categories-column-top) + var(--category-container-margin));
+    --category-container-left: calc(var(--categories-column-maximized-left) + var(--search-bar-strip-maximized-padding-left));
+    --category-container-height: calc(100% - var(--categories-column-top) - 2 * var(--category-container-margin));
+    --category-container-width: calc(100% - 2 * var(--category-container-left));
 }
 
 
@@ -197,7 +204,7 @@
     justify-content: space-between;
     padding: var(--search-bar-strip-vertical-padding) 20px;
     background-color: var(--color-gray-300);
-    z-index: 999;
+    z-index: 9999;
     transition: left 0.3s ease, width 0.3s ease;
 
     #search-bar {
@@ -281,16 +288,17 @@
 #search-bar-strip.maximized {
     left: var(--categories-column-maximized-left);
     width: var(--categories-column-maximized-width);
+    padding-left: var(--search-bar-strip-maximized-padding-left);
 }
 
 #categories-column {
     position: relative;
     left: var(--sidebar-width); 
-    top: calc(var(--navbar-height) + var(--search-bar-strip-height));
+    top: var(--categories-column-top);
     width: var(--categories-column-width);
+    min-height: calc(100vh - var(--categories-column-top));
     padding: 10px calc(var(--default-padding-right) + 40px) 30px;
     background-color: var(--color-gray-200);
-    z-index: 998;
     transition: left 0.3s ease, width 0.3s ease;
 
     .aisle-flag-line {
@@ -361,4 +369,16 @@
 #categories-column.maximized {
     left: var(--categories-column-maximized-left);
     width: var(--categories-column-maximized-width);
+}
+
+#category-container {
+    position: fixed;
+    top: var(--category-container-top);
+    left: var(--category-container-left);
+    height: var(--category-container-height);
+    width: var(--category-container-width);
+    background-color: var(--color-gray-400);
+    border: 1px solid var(--color-gray-500);
+    border-radius: 5px;
+    z-index: 9999;
 }
