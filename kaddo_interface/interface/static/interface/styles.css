@@ -380,18 +380,18 @@
     width: var(--category-container-width);
     display: flex;
     background-color: var(--color-gray-100);
-    border: 2px solid var(--color-gray-500);
+    /* border: 2px solid var(--color-gray-600); */
     border-radius: 5px;
     z-index: 9999;
+    padding: 10px 20px;
 
     #category-filters-big-container {
         width: 400px;
         height: 100%;
-        background-color: var(--color-gray-200);
-        padding: 10px 20px;
+        background-color: var(--color-gray-100);   
 
         #category-title-container {
-            color: var(--color-gray-500);
+            color: var(--color-gray-600);
             font-weight: 500;
             font-size: 18px;
         }
