@@ -79,15 +79,18 @@ This project is a new version of our interface, integrating several innovative s
     # Or use `source venv/bin/activate` on Linux/Mac
     ```
 
-3. Install project dependencies:
+3. Move to project's folder:
+    ```bash
+    cd kaddo_interface
+    ```
+
+4. On project's folder, install project dependencies:
     ```bash
     pip install -r requirements.txt
     ```
 
-
-4. Start project:
+5. On project's folder, start project:
     ```bash
-    cd kaddo_interface
     python manage.py runserver
     ```
 
