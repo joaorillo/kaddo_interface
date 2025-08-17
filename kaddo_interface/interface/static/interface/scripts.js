@@ -9,6 +9,7 @@ let aislesFlagsLines;
 let aislesFlags;
 let categoryCards;
 let categoryContainer;
+let categoryCardMaionese;
 
 document.addEventListener('DOMContentLoaded', () => {
     // User clicks on an aisle on sidebar
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
 
-    // Search bar input clicked / Close search icon clicked
+    // Search bar input clicked / Category card clicked / Close search icon clicked / Close category card clicked
     searchBarStrip = document.getElementById('search-bar-strip');
     searchBar = document.getElementById('search-bar');
     searchBarInput = document.getElementById('search-bar-input');
@@ -33,14 +34,24 @@ document.addEventListener('DOMContentLoaded', () => {
     aislesFlags = document.getElementsByClassName('aisle-flag');
     categoryCards = document.getElementsByClassName('category-card');
     categoryContainer = document.getElementById('category-container');
+    categoryCardMaionese = document.getElementById('category-card-maionese');
     searchBar.addEventListener('click', () => {
         searchBarInput.focus();
         if (!sidebar.classList.contains('minimized')) {
             toggleSearch();
         }
     })
+    categoryCardMaionese.addEventListener('click', () => {
+        if (!sidebar.classList.contains('minimized')) {
+            toggleSearch();
+            toggleClass(categoryContainer, 'd-none');
+        }
+    })
     closeSearchIcon.addEventListener('click', (event) => {
         event.stopPropagation(); // Prevents the click from bubbling up to #search-bar
+        if (sidebar.classList.contains('minimized')) {
+            toggleClass(categoryContainer, 'd-none');
+        }
         if (sidebar.classList.contains('minimized')) {
             toggleSearch();
         }
@@ -87,7 +98,6 @@ function toggleSearch() {
     if (sidebar.classList.contains('minimized')) {
         searchBarInput.value = '';
     }
-    toggleClass(categoryContainer, 'd-none');
     Array.from(categoryCards).forEach((categoryCard) => {
         toggleClass(categoryCard, 'd-none');
     })

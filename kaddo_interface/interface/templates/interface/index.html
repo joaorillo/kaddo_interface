@@ -153,5 +153,52 @@
     </div>
     <div id="category-products-container">
     </div>
+    {% comment %} <div id="category-products-container" class="col-12 col-lg-9 d-flex flex-column h-100">
+      <section id="products-section" style="position: relative;">
+        <div class="close-category">
+          <img src="{% static 'images/buttons/close_btn.svg' %}" class="close-icon" role="button" onclick="closeSidepanel('more-info-div')"/>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-2 d-none d-lg-block">
+          <div id="cart-button-inside-desktop" class="cart-btn-container" role="button" onclick="openSidepanel('cartSidepanel')">
+            <div class="fab my-0 ms-0">
+              <img src="{% static 'images/icons/cart_icon.svg' %}" />
+              <span class="text-black cart-length">{{ cart|length }}</span>
+            </div>
+          </div>
+        </div>
+        <div id="filter-button-inside-mobile" class="cart-btn-container d-lg-none" role="button" onclick="openSidepanel('filterSidepanel')">
+          <div class="fab my-0 ms-0">
+            <img src="{% static 'images/icons/filter.svg' %}" />
+          </div>
+        </div>
+        <div id="cart-button-inside-mobile" class="cart-btn-container d-lg-none" role="button" onclick="openSidepanel('cartSidepanel')">
+          <div class="fab my-0 ms-0">
+            <img src="{% static 'images/icons/cart_icon.svg' %}" />
+          <span class="text-black cart-length">{{ cart|length }}</span>
+          </div>
+        </div>
+        <div class="reorderWrapper mt-3 mb-4 d-lg-none">
+          <button class="reorderBtn dropdown-toggle">
+            <img src="{% static 'images/icons/reorder.svg' %}" class="reorder-icon me-2"/>
+            <span class="selectedValue">Relevância</span>
+          </button>
+          <ul class="dropdown-menu">
+          </ul>
+        </div>
+        <div id="loading_category" style="display: none; height: 50vh; display: flex; justify-content: center; align-items: center;">
+          <img src="{% static 'gifs/loading_gif.gif' %}" alt="Loading..." style="width: 100px; height: 100px;"/>
+        </div>
+        <div id="products-container" class="pb-4 pt-2 mt-2"></div>
+        <div class="no-results primary-black px-4 py-2 d-none">
+          <p>
+            Nenhum produto encontrado na categoria .
+            Verifique se há algum filtro selecionado ou texto na barra de pesquisa.
+          </p>
+          <button id="search_other_categories" style="background-color: #ffd80d; font-weight: bold; border: 2px solid black; border-radius: 10px; padding: 10px;" onclick="searchOtherCategories()">
+            Pesquisar em outras categorias
+          </button>
+        <div>
+      </section>
+    </div> {% endcomment %}
 </div>
 {% endblock %}

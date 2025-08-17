@@ -386,9 +386,10 @@
     padding: 10px 20px;
 
     #category-filters-big-container {
-        width: 400px;
+        width: 300px;
         height: 100%;
-        background-color: var(--color-gray-100);   
+        background-color: var(--color-gray-100);
+        border-right: 1px solid var(--color-gray-600);
 
         #category-title-container {
             color: var(--color-gray-600);
