@@ -51,37 +51,37 @@
     <div class="categories-grid">
         <div id="category-card-maionese" class="category-card">
             <div class="category-card-img-container">
-                <img class="category-card-img" src="{% static 'media_dev/maionese.png' %}">
+                <img class="category-card-img" src="{% static 'media_dev/categories/maionese.png' %}">
             </div>
             <div class="category-card-title-container">Maionese</div>
         </div>
         <div id="category-card-mostarda" class="category-card">
             <div class="category-card-img-container">
-                <img class="category-card-img" src="{% static 'media_dev/mostarda.png' %}">
+                <img class="category-card-img" src="{% static 'media_dev/categories/mostarda.png' %}">
             </div>
             <div class="category-card-title-container">Mostarda</div>
         </div>
         <div id="category-card-ketchup" class="category-card">
             <div class="category-card-img-container">
-                <img class="category-card-img" src="{% static 'media_dev/ketchup.png' %}">
+                <img class="category-card-img" src="{% static 'media_dev/categories/ketchup.png' %}">
             </div>
             <div class="category-card-title-container">Ketchup</div>
         </div>
         <div id="category-card-molho-de-pimenta" class="category-card">
             <div class="category-card-img-container">
-                <img class="category-card-img" src="{% static 'media_dev/molho-de-pimenta.png' %}">
+                <img class="category-card-img" src="{% static 'media_dev/categories/molho-de-pimenta.png' %}">
             </div>
             <div class="category-card-title-container">Molho de Pimenta</div>
         </div>
         <div id="category-card-molhos-para-salada" class="category-card">
             <div class="category-card-img-container">
-                <img class="category-card-img" src="{% static 'media_dev/molhos-para-salada.png' %}">
+                <img class="category-card-img" src="{% static 'media_dev/categories/molhos-para-salada.png' %}">
             </div>
             <div class="category-card-title-container">Molhos para Salada</div>
         </div>
         <div id="category-card-ervas-e-especiaris" class="category-card">
             <div class="category-card-img-container">
-                <img class="category-card-img" src="{% static 'media_dev/ervas-e-especiarias.png' %}">
+                <img class="category-card-img" src="{% static 'media_dev/categories/ervas-e-especiarias.png' %}">
             </div>
             <div class="category-card-title-container">Ervas e Especiarias</div>
         </div>
@@ -89,13 +89,13 @@
     <div class="categories-grid">
         <div id="category-card-sopas-e-cremes" class="category-card">
             <div class="category-card-img-container">
-                <img class="category-card-img" src="{% static 'media_dev/sopas-e-cremes.png' %}">
+                <img class="category-card-img" src="{% static 'media_dev/categories/sopas-e-cremes.png' %}">
             </div>
             <div class="category-card-title-container">Sopas e Cremes</div>
         </div>
         <div id="category-card-outros-temperos-e-condimentos" class="category-card">
             <div class="category-card-img-container">
-                <img class="category-card-img" src="{% static 'media_dev/outros-temperos-e-condimentos.png' %}">
+                <img class="category-card-img" src="{% static 'media_dev/categories/outros-temperos-e-condimentos.png' %}">
             </div>
             <div class="category-card-title-container">Outros Temperos e Condimentos</div>
         </div>
@@ -105,25 +105,25 @@
     <div class="categories-grid">
         <div id="category-card-oleo-de-cozinha" class="category-card">
             <div class="category-card-img-container">
-                <img class="category-card-img" src="{% static 'media_dev/oleo-de-cozinha.png' %}">
+                <img class="category-card-img" src="{% static 'media_dev/categories/oleo-de-cozinha.png' %}">
             </div>
             <div class="category-card-title-container">Óleo de Cozinha</div>
         </div>
         <div id="category-card-oleo-de-coco" class="category-card">
             <div class="category-card-img-container">
-                <img class="category-card-img" src="{% static 'media_dev/oleo-de-coco.png' %}">
+                <img class="category-card-img" src="{% static 'media_dev/categories/oleo-de-coco.png' %}">
             </div>
             <div class="category-card-title-container">Óleo de Coco</div>
         </div>
         <div id="category-card-azeites" class="category-card">
             <div class="category-card-img-container">
-                <img class="category-card-img" src="{% static 'media_dev/azeites.png' %}">
+                <img class="category-card-img" src="{% static 'media_dev/categories/azeites.png' %}">
             </div>
             <div class="category-card-title-container">Azeites</div>
         </div>
         <div id="category-card-vinagres" class="category-card">
             <div class="category-card-img-container">
-                <img class="category-card-img" src="{% static 'media_dev/vinagres.png' %}">
+                <img class="category-card-img" src="{% static 'media_dev/categories/vinagres.png' %}">
             </div>
             <div class="category-card-title-container">Vinagres</div>
         </div>
@@ -152,53 +152,68 @@
         </div>
     </div>
     <div id="category-products-container">
-    </div>
-    {% comment %} <div id="category-products-container" class="col-12 col-lg-9 d-flex flex-column h-100">
-      <section id="products-section" style="position: relative;">
-        <div class="close-category">
-          <img src="{% static 'images/buttons/close_btn.svg' %}" class="close-icon" role="button" onclick="closeSidepanel('more-info-div')"/>
-        </div>
-        <div class="d-flex justify-content-between align-items-center mt-2 d-none d-lg-block">
-          <div id="cart-button-inside-desktop" class="cart-btn-container" role="button" onclick="openSidepanel('cartSidepanel')">
-            <div class="fab my-0 ms-0">
-              <img src="{% static 'images/icons/cart_icon.svg' %}" />
-              <span class="text-black cart-length">{{ cart|length }}</span>
+        <div id="product-grid">
+            <div class="product-card">
+                <img class="product-image" src="{% static 'media_dev/products/maionese-heinz-215g.png' %}" alt="Product">
+                <p class="product-card-title">Maionese Heinz 215g</p>
+                <p class="product-price">R$6,99</p>
             </div>
-          </div>
+            <div class="product-card">
+                <img class="product-image" src="{% static 'media_dev/products/maionese-hellmanns-sache-800g.png' %}" alt="Product">
+                <p class="product-card-title">Maionese Hellmann's Sachê 800g</p>
+                <p class="product-price">R$12,99</p>
+            </div>
+            <div class="product-card">
+                <img class="product-image" src="{% static 'media_dev/products/maionese-tradicional-liza-sache-400g.png' %}" alt="Product">
+                <p class="product-card-title">Maionese Tradicional Liza Sachê 400g</p>
+                <p class="product-price">R$3,99</p>
+            </div>
+            <div class="product-card">
+                <img class="product-image" src="{% static 'media_dev/products/maionese-heinz-390g.png' %}" alt="Product">
+                <p class="product-card-title">Maionese Heinz 390g</p>
+                <p class="product-price">R$11,99</p>
+            </div>
+            <div class="product-card">
+                <img class="product-image" src="{% static 'media_dev/products/maionese-chef-heinz-415g.png' %}" alt="Product">
+                <p class="product-card-title">Maionese Chef Heinz 415g</p>
+                <p class="product-price">R$19,99</p>
+            </div>
+            <div class="product-card">
+                <img class="product-image" src="{% static 'media_dev/products/maionese-ao-toque-de-mostarda-dijon-maille-320g.png' %}" alt="Product">
+                <p class="product-card-title">Maionese ao Toque de Mostarda Dijon Maille 320g</p>
+                <p class="product-price">R$29,99</p>
+            </div>
+            <div class="product-card">
+                <img class="product-image" src="{% static 'media_dev/products/maionese-cremosa-7-azeitona-preta-strumpf-210g.png' %}" alt="Product">
+                <p class="product-card-title">Maionese Cremosa #7 Azeitona Preta Strumpf 210g</p>
+                <p class="product-price">R$23,99</p>
+            </div>
+            <div class="product-card">
+                <img class="product-image" src="{% static 'media_dev/products/maionese-verde-hellmanns-squeeze-335g.png' %}" alt="Product">
+                <p class="product-card-title">Maionese Verde Hellmann's Squeeze 335g</p>
+                <p class="product-price">R$14,99</p>
+            </div>
+            <div class="product-card">
+                <img class="product-image" src="{% static 'media_dev/products/maionese-heinz-pote-400g.png' %}" alt="Product">
+                <p class="product-card-title">Maionese Heinz Pote 400g</p>
+                <p class="product-price">R$15,99</p>
+            </div>
+            <div class="product-card">
+                <img class="product-image" src="{% static 'media_dev/products/maionese-supreme-hellmanns-330g.png' %}" alt="Product">
+                <p class="product-card-title">Maionese Supreme Hellmann's 330g</p>
+                <p class="product-price">R$17,99</p>
+            </div>
+            <div class="product-card">
+                <img class="product-image" src="{% static 'media_dev/products/maionese-hellmanns-500g.png' %}" alt="Product">
+                <p class="product-card-title">Maionese Hellmann's 500g</p>
+                <p class="product-price">R$9,99</p>
+            </div>
+            <div class="product-card">
+                <img class="product-image" src="{% static 'media_dev/products/maionese-hellmanns-squeeze-335g.png' %}" alt="Product">
+                <p class="product-card-title">Maionese Hellmann's Squeeze 335g</p>
+                <p class="product-price">R$8,99</p>
+            </div>
         </div>
-        <div id="filter-button-inside-mobile" class="cart-btn-container d-lg-none" role="button" onclick="openSidepanel('filterSidepanel')">
-          <div class="fab my-0 ms-0">
-            <img src="{% static 'images/icons/filter.svg' %}" />
-          </div>
-        </div>
-        <div id="cart-button-inside-mobile" class="cart-btn-container d-lg-none" role="button" onclick="openSidepanel('cartSidepanel')">
-          <div class="fab my-0 ms-0">
-            <img src="{% static 'images/icons/cart_icon.svg' %}" />
-          <span class="text-black cart-length">{{ cart|length }}</span>
-          </div>
-        </div>
-        <div class="reorderWrapper mt-3 mb-4 d-lg-none">
-          <button class="reorderBtn dropdown-toggle">
-            <img src="{% static 'images/icons/reorder.svg' %}" class="reorder-icon me-2"/>
-            <span class="selectedValue">Relevância</span>
-          </button>
-          <ul class="dropdown-menu">
-          </ul>
-        </div>
-        <div id="loading_category" style="display: none; height: 50vh; display: flex; justify-content: center; align-items: center;">
-          <img src="{% static 'gifs/loading_gif.gif' %}" alt="Loading..." style="width: 100px; height: 100px;"/>
-        </div>
-        <div id="products-container" class="pb-4 pt-2 mt-2"></div>
-        <div class="no-results primary-black px-4 py-2 d-none">
-          <p>
-            Nenhum produto encontrado na categoria .
-            Verifique se há algum filtro selecionado ou texto na barra de pesquisa.
-          </p>
-          <button id="search_other_categories" style="background-color: #ffd80d; font-weight: bold; border: 2px solid black; border-radius: 10px; padding: 10px;" onclick="searchOtherCategories()">
-            Pesquisar em outras categorias
-          </button>
-        <div>
-      </section>
-    </div> {% endcomment %}
+    </div>
 </div>
 {% endblock %}
