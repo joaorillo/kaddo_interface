@@ -44,22 +44,15 @@ document.addEventListener('DOMContentLoaded', () => {
     categoryCardMaionese.addEventListener('click', () => {
         if (!sidebar.classList.contains('minimized')) {
             toggleSearch();
-            toggleClass(categoryContainer, 'd-none');
+            toggleClass(categoryContainer, 'hidden');
         }
     })
     closeSearchIcon.addEventListener('click', (event) => {
         event.stopPropagation(); // Prevents the click from bubbling up to #search-bar
-        if (sidebar.classList.contains('minimized')) {
-            toggleClass(categoryContainer, 'd-none');
-        }
-        if (sidebar.classList.contains('minimized')) {
-            toggleSearch();
-        }
+        toggleSearch();
     })
     sidebarReopenIcon.addEventListener('click', () => {
-        if (sidebar.classList.contains('minimized')) {
-            toggleSearch();
-        }
+        toggleSearch();
     })
 })
 
@@ -90,14 +83,15 @@ function toggleClass(element, className) {
 
 // Toggles between 'default view' and 'search view'
 function toggleSearch() {
+    searchBarInput.value = '';
+    if (sidebar.classList.contains('minimized') && !categoryContainer.classList.contains('hidden')) {
+        categoryContainer.classList.add('hidden');
+    }
     toggleClass(sidebar, 'minimized');
     toggleClass(searchBarStrip, 'maximized');
     toggleClass(categoriesColumn, 'maximized');
     toggleClass(closeSearchIcon, 'd-none');
     toggleClass(sidebarReopenIcon, 'd-none');
-    if (sidebar.classList.contains('minimized')) {
-        searchBarInput.value = '';
-    }
     Array.from(categoryCards).forEach((categoryCard) => {
         toggleClass(categoryCard, 'd-none');
     })
