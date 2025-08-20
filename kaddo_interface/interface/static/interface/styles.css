@@ -31,7 +31,7 @@
     --default-border-radius: 10px;
     --default-margin-right: 20px;
     --default-color-hover: var(--color-gray-600);
-    --navbar-height: 56px;
+    --nav-height: 56px;
     --sidebar-width: 300px;
     --sidebar-minimized-width-proportion: 0.8;
     --sidebar-minimized-left: calc(-1 * var(--sidebar-minimized-width-proportion) * var(--sidebar-width));
@@ -41,7 +41,7 @@
     --search-bar-strip-width: calc(100% - var(--sidebar-width));
     --search-bar-strip-vertical-padding: 12px;
     --search-bar-strip-maximized-padding-left: 40px;
-    --categories-column-top: calc(var(--navbar-height) + var(--search-bar-strip-height));
+    --categories-column-top: calc(var(--nav-height) + var(--search-bar-strip-height));
     --categories-column-width: var(--search-bar-strip-width);
     --categories-column-maximized-left: calc(var(--sidebar-width) + var(--sidebar-minimized-left));
     --categories-column-maximized-width: calc(100% - var(--categories-column-maximized-left));
@@ -57,7 +57,7 @@
 
 #main-nav {
     background-color: var(--color-gray-100);
-    height: var(--navbar-height);
+    height: var(--nav-height);
     padding: 0;
 
     #main-nav-container{
@@ -119,10 +119,10 @@
 
 #sidebar {
     position: fixed;
-    top: var(--navbar-height);
+    top: var(--nav-height);
     left: 0;
     width: var(--sidebar-width);
-    height: calc(100vh - var(--navbar-height));
+    height: calc(100vh - var(--nav-height));
     background-color: var(--color-gray-100);
     padding: 1rem;
     overflow-y: auto;
@@ -168,7 +168,7 @@
 
 #sidebar-reopen-icon {
     position: fixed;
-    top: calc(var(--navbar-height) + 50% - 20px);
+    top: calc(var(--nav-height) + 50% - 20px);
     left: var(--sidebar-reopen-icon-left);
     width: 22px;
     height: 50px;
@@ -198,7 +198,7 @@
 #search-bar-strip {
     position: fixed;
     left: var(--sidebar-width);
-    top: var(--navbar-height);
+    top: var(--nav-height);
     width: var(--search-bar-strip-width);
     height: var(--search-bar-strip-height);
     display: flex;
@@ -260,7 +260,7 @@
 
     #cart-icon-container {
         position: fixed;
-        top: calc(var(--navbar-height) + var(--search-bar-strip-vertical-padding));
+        top: calc(var(--nav-height) + var(--search-bar-strip-vertical-padding));
         height: calc(var(--search-bar-strip-height) - 2 * var(--search-bar-strip-vertical-padding));
         aspect-ratio: 1 / 1;
         background-color: var(--color-brand-red);
