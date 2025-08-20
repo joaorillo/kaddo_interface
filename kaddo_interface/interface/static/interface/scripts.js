@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.categoryCards = document.getElementsByClassName('category-card');
     ui.categoryContainer = document.getElementById('category-container');
     ui.categoryCardMaionese = document.getElementById('category-card-maionese');
+    ui.firstAisleFlag = document.querySelector('.aisle-flag');
 
     // User clicks on an aisle on ui.sidebar
     const aislesNames = document.querySelectorAll('.aisle-name');
@@ -62,7 +63,7 @@ function scroll_aisle(aisleName) {
         if (targetId.length > 1) {
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                var addedScrollingHeight = ui.categoryContainer.getBoundingClientRect().top + window.scrollY;
+                var addedScrollingHeight = ui.firstAisleFlag.getBoundingClientRect().top + window.scrollY;
                 const y = targetElement.getBoundingClientRect().top + window.scrollY - addedScrollingHeight;
                 window.scrollTo({top: y, behavior: 'smooth'});
             }
