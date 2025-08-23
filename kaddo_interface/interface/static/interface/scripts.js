@@ -15,19 +15,36 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.categoryContainer = document.getElementById('category-container');
     ui.categoryCardMaionese = document.getElementById('category-card-maionese');
     ui.firstAisleFlag = document.querySelector('.aisle-flag');
-    ui.addedScrollingHeight = ui.firstAisleFlag.getBoundingClientRect().top + window.scrollY
+    ui.addedScrollingHeight = ui.firstAisleFlag.getBoundingClientRect().top + window.scrollY;
+    ui.firstAisleFlagDistanceToBottom = window.innerHeight - ui.firstAisleFlag.getBoundingClientRect().top;
 
     // User clicks on an aisle on ui.sidebar
     const aislesNames = document.querySelectorAll('.aisle-name');
-    aislesNames.forEach((aisle) => {
-        var aisleName = aisle.innerHTML;
-        aisle.addEventListener('click', (e) => {
+    aislesNames.forEach((aisleName) => {
+        var aisleSlug = aisleName.id.replace('aisle-name-', '');;
+        aisleName.addEventListener('click', (e) => {
             e.preventDefault();
-            setCurrentAisle(aisleName, true);
+            setCurrentAisle(aisleSlug, true);
         })
     })
 
     // User scrolls through aisles
+    ui.aislesScrollPositions = [];
+    ui.aislesFlags.forEach(flag => {
+        const aisleSlug = flag.id.replace('aisle-flag-', '');
+        const categoriesGrid = flag.nextElementSibling; 
+        var offset = flag.offsetHeight + 40;
+        if (categoriesGrid && categoriesGrid.classList.contains('categories-grid')) {
+            const firstCard = categoriesGrid.querySelector('.category-card');
+            if (firstCard) {
+                const cardHeight = firstCard.offsetHeight;
+                offset += cardHeight;
+            }
+            const y = flag.getBoundingClientRect().top - ui.addedScrollingHeight;
+            const aisleScrollPosition = y - ui.firstAisleFlagDistanceToBottom + offset;
+            ui.aislesScrollPositions.push({'aisleSlug': aisleSlug, 'aisleScrollPosition': aisleScrollPosition});
+        }
+    })
     window.addEventListener("scroll", onScroll);
 
     // Search bar input clicked / Category card clicked / Close search icon clicked / Close category card clicked
@@ -54,10 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // Set current aisle
-function setCurrentAisle(aisleName, scroll = false) {
+function setCurrentAisle(aisleSlug, scroll = false) {
     var currentAisle = document.querySelector('.aisle-name.selected');
-    var newCurrentAisle = Array.from(document.querySelectorAll('.aisle-name'))
-        .find(el => el.innerHTML.trim() === aisleName);
+    var newCurrentAisle = document.getElementById(`aisle-name-${aisleSlug}`);
     if (currentAisle && newCurrentAisle && currentAisle != newCurrentAisle) {
         currentAisle.classList.remove('selected');
         newCurrentAisle.classList.add('selected');
@@ -78,15 +94,10 @@ function setCurrentAisle(aisleName, scroll = false) {
 // Identify when user scrolls to a certain aisle
 function onScroll() {
     const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-    const windowHeight = window.innerHeight;
-    const offset = 400;
-    ui.aislesFlags.forEach(flag => {
-        const aisleName = flag.innerHTML;
-        const elementTop = flag.offsetTop;
-        const elementBottom = elementTop + flag.offsetHeight;
-        console.log(`${aisleName}: ${elementTop} > ${elementBottom}`);
-        if (scrollPosition + windowHeight >= elementTop + offset && scrollPosition <= elementBottom) {
-            setCurrentAisle(aisleName);
+    ui.aislesScrollPositions.forEach(aisle => {
+        if (scrollPosition >= aisle.aisleScrollPosition) {
+            setCurrentAisle(aisle.aisleSlug);
+            
         }
     })
 }
