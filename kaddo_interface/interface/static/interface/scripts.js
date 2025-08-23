@@ -1,5 +1,7 @@
 const ui = {};
 
+window.onbeforeunload = () => window.scrollTo(0, 0);
+
 document.addEventListener('DOMContentLoaded', () => {
     // Define 'ui' (User Interface) variables
     ui.searchBarStrip = document.getElementById('search-bar-strip');
@@ -21,10 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // User clicks on an aisle on ui.sidebar
     const aislesNames = document.querySelectorAll('.aisle-name');
     aislesNames.forEach((aisleName) => {
-        var aisleSlug = aisleName.id.replace('aisle-name-', '');;
         aisleName.addEventListener('click', (e) => {
             e.preventDefault();
-            setCurrentAisle(aisleSlug, true);
+            targetId = aisleName.getAttribute('href');
+            if (targetId.length > 1) {
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const y = targetElement.getBoundingClientRect().top + window.scrollY - ui.addedScrollingHeight;
+                    window.scrollTo({top: y, behavior: 'smooth'});
+                }
+            }
         })
     })
 
@@ -34,22 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
     var cardHeight = 0;
     if (firstCard) {
         cardHeight = firstCard.offsetHeight;
-        console.log(`cardHeight: ${cardHeight}`);
     }
     ui.aislesFlags.forEach(flag => {
         const y = flag.getBoundingClientRect().top - ui.addedScrollingHeight;
         const aisleScrollPosition = y - 0.7 * cardHeight - 30;
         const aisleSlug = flag.id.replace('aisle-flag-', '');
         ui.aislesScrollPositions.push({'aisleSlug': aisleSlug, 'aisleScrollPosition': aisleScrollPosition});
-        console.log(`${aisleSlug}:`);
-        console.log(`    > y: ${y}:`);
-        console.log(`    > aisleScrollPosition: ${aisleScrollPosition}:`);
-        // const categoriesGrid = flag.nextElementSibling;
-        // if (categoriesGrid && categoriesGrid.classList.contains('categories-grid')) {
-        //     const y = flag.getBoundingClientRect().top - ui.addedScrollingHeight;
-        //     const aisleScrollPosition = y - ui.firstAisleFlagDistanceToBottom + offset;
-        //     ui.aislesScrollPositions.push({'aisleSlug': aisleSlug, 'aisleScrollPosition': aisleScrollPosition});
-        // }
     })
     window.addEventListener("scroll", onScroll);
 
@@ -73,26 +71,19 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.sidebarReopenIcon.addEventListener('click', () => {
         toggleSearch();
     })
+
+    // Scroll to top
+    window.scrollTo(0, 0);
 })
 
 
 // Set current aisle
-function setCurrentAisle(aisleSlug, scroll = false) {
+function setCurrentAisle(aisleSlug) {
     var currentAisle = document.querySelector('.aisle-name.selected');
     var newCurrentAisle = document.getElementById(`aisle-name-${aisleSlug}`);
     if (currentAisle && newCurrentAisle && currentAisle != newCurrentAisle) {
         currentAisle.classList.remove('selected');
         newCurrentAisle.classList.add('selected');
-        if (scroll) {
-            targetId = newCurrentAisle.getAttribute('href');
-            if (targetId.length > 1) {
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    const y = targetElement.getBoundingClientRect().top + window.scrollY - ui.addedScrollingHeight;
-                    window.scrollTo({top: y, behavior: 'smooth'});
-                }
-            }
-        }
     }
 }
 
@@ -100,12 +91,13 @@ function setCurrentAisle(aisleSlug, scroll = false) {
 // Identify when user scrolls to a certain aisle
 function onScroll() {
     const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-    console.log(`>> scrollPosition: ${scrollPosition}`);
-    ui.aislesScrollPositions.forEach(aisle => {
+    for (let i = ui.aislesScrollPositions.length - 1; i >= 0; i--) {
+        var aisle = ui.aislesScrollPositions[i];
         if (scrollPosition >= aisle.aisleScrollPosition) {
             setCurrentAisle(aisle.aisleSlug);
+            return
         }
-    })
+    }
 }
 
 
