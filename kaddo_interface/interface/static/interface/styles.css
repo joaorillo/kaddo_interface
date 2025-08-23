@@ -45,6 +45,7 @@
     --categories-column-width: var(--search-bar-strip-width);
     --categories-column-maximized-left: calc(var(--sidebar-width) + var(--sidebar-minimized-left));
     --categories-column-maximized-width: calc(100% - var(--categories-column-maximized-left));
+    --categories-column-padding-ver: 30px;
     --category-container-margin: 20px;
     --category-container-padding-hor: 25px;
     --category-container-padding-ver: 13px;
@@ -293,14 +294,14 @@
     top: var(--categories-column-top);
     width: var(--categories-column-width);
     min-height: calc(100vh - var(--categories-column-top));
-    padding: 10px calc(var(--default-padding-right) + 40px) 30px;
+    padding: var(--categories-column-padding-ver) calc(var(--default-padding-right) + 40px);
     background-color: var(--color-gray-200);
     transition: left 0.3s ease, width 0.3s ease;
 
     .aisle-flag-line {
         width: 100%;
         border: 2px solid var(--color-gray-400);
-        margin: 30px 0 0 0;
+        margin: 0 0 0 0;
     }
 
     .aisle-flag {
@@ -321,6 +322,7 @@
         grid-template-columns: repeat(6, 1fr);
         gap: 15px;
         margin-top: 10px;
+        margin-bottom: var(--categories-column-padding-ver);
 
         .category-card {
             background-color: var(--color-gray-100);

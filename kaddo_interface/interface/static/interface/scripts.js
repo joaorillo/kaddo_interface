@@ -30,20 +30,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // User scrolls through aisles
     ui.aislesScrollPositions = [];
+    const firstCard = document.querySelector('.category-card');
+    var cardHeight = 0;
+    if (firstCard) {
+        cardHeight = firstCard.offsetHeight;
+        console.log(`cardHeight: ${cardHeight}`);
+    }
     ui.aislesFlags.forEach(flag => {
+        const y = flag.getBoundingClientRect().top - ui.addedScrollingHeight;
+        const aisleScrollPosition = y - 0.7 * cardHeight - 30;
         const aisleSlug = flag.id.replace('aisle-flag-', '');
-        const categoriesGrid = flag.nextElementSibling; 
-        var offset = flag.offsetHeight + 40;
-        if (categoriesGrid && categoriesGrid.classList.contains('categories-grid')) {
-            const firstCard = categoriesGrid.querySelector('.category-card');
-            if (firstCard) {
-                const cardHeight = firstCard.offsetHeight;
-                offset += cardHeight;
-            }
-            const y = flag.getBoundingClientRect().top - ui.addedScrollingHeight;
-            const aisleScrollPosition = y - ui.firstAisleFlagDistanceToBottom + offset;
-            ui.aislesScrollPositions.push({'aisleSlug': aisleSlug, 'aisleScrollPosition': aisleScrollPosition});
-        }
+        ui.aislesScrollPositions.push({'aisleSlug': aisleSlug, 'aisleScrollPosition': aisleScrollPosition});
+        console.log(`${aisleSlug}:`);
+        console.log(`    > y: ${y}:`);
+        console.log(`    > aisleScrollPosition: ${aisleScrollPosition}:`);
+        // const categoriesGrid = flag.nextElementSibling;
+        // if (categoriesGrid && categoriesGrid.classList.contains('categories-grid')) {
+        //     const y = flag.getBoundingClientRect().top - ui.addedScrollingHeight;
+        //     const aisleScrollPosition = y - ui.firstAisleFlagDistanceToBottom + offset;
+        //     ui.aislesScrollPositions.push({'aisleSlug': aisleSlug, 'aisleScrollPosition': aisleScrollPosition});
+        // }
     })
     window.addEventListener("scroll", onScroll);
 
@@ -94,10 +100,10 @@ function setCurrentAisle(aisleSlug, scroll = false) {
 // Identify when user scrolls to a certain aisle
 function onScroll() {
     const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+    console.log(`>> scrollPosition: ${scrollPosition}`);
     ui.aislesScrollPositions.forEach(aisle => {
         if (scrollPosition >= aisle.aisleScrollPosition) {
             setCurrentAisle(aisle.aisleSlug);
-            
         }
     })
 }
