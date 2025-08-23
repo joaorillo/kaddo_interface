@@ -9,12 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.sidebar = document.getElementById('sidebar');
     ui.sidebarReopenIcon = document.getElementById('sidebar-reopen-icon');
     ui.categoriesColumn = document.getElementById('categories-column');
-    ui.aislesFlagsLines = document.getElementsByClassName('aisle-flag-line');
-    ui.aislesFlags = document.getElementsByClassName('aisle-flag');
-    ui.categoryCards = document.getElementsByClassName('category-card');
+    ui.aislesFlagsLines = document.querySelectorAll('.aisle-flag-line');
+    ui.aislesFlags = document.querySelectorAll('.aisle-flag');
+    ui.categoryCards = document.querySelectorAll('.category-card');
     ui.categoryContainer = document.getElementById('category-container');
     ui.categoryCardMaionese = document.getElementById('category-card-maionese');
     ui.firstAisleFlag = document.querySelector('.aisle-flag');
+    ui.addedScrollingHeight = ui.firstAisleFlag.getBoundingClientRect().top + window.scrollY
 
     // User clicks on an aisle on ui.sidebar
     const aislesNames = document.querySelectorAll('.aisle-name');
@@ -22,9 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
         var aisleName = aisle.innerHTML;
         aisle.addEventListener('click', (e) => {
             e.preventDefault();
-            scroll_aisle(aisleName);
+            setCurrentAisle(aisleName, true);
         })
     })
+
+    // User scrolls through aisles
+    window.addEventListener("scroll", onScroll);
 
     // Search bar input clicked / Category card clicked / Close search icon clicked / Close category card clicked
     ui.searchBar.addEventListener('click', () => {
@@ -49,30 +53,47 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 
-// Scrolls to a given aisle
-function scroll_aisle(aisleName) {
-    var selectedAisle = document.querySelector('.aisle-name.selected');
-    if (selectedAisle){
-        selectedAisle.classList.remove('selected');
-    }
-    var clickedAisle = Array.from(document.querySelectorAll('.aisle-name'))
+// Set current aisle
+function setCurrentAisle(aisleName, scroll = false) {
+    var currentAisle = document.querySelector('.aisle-name.selected');
+    var newCurrentAisle = Array.from(document.querySelectorAll('.aisle-name'))
         .find(el => el.innerHTML.trim() === aisleName);
-    if (clickedAisle) {
-        clickedAisle.classList.add('selected');
-        targetId = clickedAisle.getAttribute('href');
-        if (targetId.length > 1) {
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                var addedScrollingHeight = ui.firstAisleFlag.getBoundingClientRect().top + window.scrollY;
-                const y = targetElement.getBoundingClientRect().top + window.scrollY - addedScrollingHeight;
-                window.scrollTo({top: y, behavior: 'smooth'});
+    if (currentAisle && newCurrentAisle && currentAisle != newCurrentAisle) {
+        currentAisle.classList.remove('selected');
+        newCurrentAisle.classList.add('selected');
+        if (scroll) {
+            targetId = newCurrentAisle.getAttribute('href');
+            if (targetId.length > 1) {
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const y = targetElement.getBoundingClientRect().top + window.scrollY - ui.addedScrollingHeight;
+                    window.scrollTo({top: y, behavior: 'smooth'});
+                }
             }
         }
     }
 }
 
 
-// Toggles a given class from a given element
+// Identify when user scrolls to a certain aisle
+function onScroll() {
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const offset = 400;
+    ui.aislesFlags.forEach(flag => {
+        const aisleName = flag.innerHTML;
+        const elementTop = flag.offsetTop;
+        const elementBottom = elementTop + flag.offsetHeight;
+        console.log(`${aisleName}: ${elementTop} > ${elementBottom}`);
+        if (scrollPosition + windowHeight >= elementTop + offset && scrollPosition <= elementBottom) {
+            setCurrentAisle(aisleName);
+        }
+    })
+}
+
+
+
+// Toggle a given class from a given element
 function toggleClass(element, className) {
     if (element.classList.contains(className)) {
         element.classList.remove(className);
@@ -82,7 +103,7 @@ function toggleClass(element, className) {
 }
 
 
-// Toggles between 'default view' and 'search view'
+// Toggle between 'default view' and 'search view'
 function toggleSearch() {
     ui.searchBarInput.value = '';
     if (ui.sidebar.classList.contains('minimized') && !ui.categoryContainer.classList.contains('hidden')) {
@@ -93,13 +114,13 @@ function toggleSearch() {
     toggleClass(ui.categoriesColumn, 'maximized');
     toggleClass(ui.closeSearchIcon, 'd-none');
     toggleClass(ui.sidebarReopenIcon, 'd-none');
-    Array.from(ui.categoryCards).forEach((categoryCard) => {
+    ui.categoryCards.forEach((categoryCard) => {
         toggleClass(categoryCard, 'd-none');
     })
-    Array.from(ui.aislesFlagsLines).forEach((aisleFlagLine) => {
+    ui.aislesFlagsLines.forEach((aisleFlagLine) => {
         toggleClass(aisleFlagLine, 'd-none');
     })
-    Array.from(ui.aislesFlags).forEach((aisleFlag) => {
+    ui.aislesFlags.forEach((aisleFlag) => {
         toggleClass(aisleFlag, 'd-none');
     })
 }
