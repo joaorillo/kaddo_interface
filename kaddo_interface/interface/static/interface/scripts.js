@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // #categories-column horizontal padding dynamically calculated
     ui.categoriesContainerBig = document.getElementById('categories-container-big');
     ui.categoriesContainerSmall = document.getElementById('categories-container-small');
-    ui.categoryCardWidth = parseFloat(rootStyles.getPropertyValue("--category-card-container-width").trim());
+    ui.categoryCardWidthDesktop = parseFloat(rootStyles.getPropertyValue("--category-card-container-width-desktop").trim());
+    ui.categoryCardWidthMobile = parseFloat(rootStyles.getPropertyValue("--category-card-container-width-mobile").trim());
     updateCategoriesContainerBigPadding();
     window.addEventListener('resize', updateCategoriesContainerBigPadding);
 
@@ -147,7 +148,11 @@ function toggleSearch() {
 // Calculate #categories-column horizontal padding
 function updateCategoriesContainerBigPadding() {
     const totalWidth = ui.categoriesContainerBig.getBoundingClientRect().width - 15.2;
-    const remainder = totalWidth % ui.categoryCardWidth;
+    var categoryCardWidth = ui.categoryCardWidthDesktop;
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        var categoryCardWidth = ui.categoryCardWidthMobile;
+    }
+    const remainder = totalWidth % categoryCardWidth;
     const padding = remainder / 2;
     ui.categoriesContainerBig.style.paddingLeft = `${padding}px`;
     ui.categoriesContainerBig.style.paddingRight = `${padding}px`;
