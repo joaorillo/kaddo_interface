@@ -77,6 +77,13 @@
             align-items: center;
             justify-content: center;
 
+            @media (max-width: 1024px) {
+                justify-content: start;
+                width: 200px;
+                padding-left: var(--default-padding-left);
+                background-color: transparent;
+            }
+
             #logo-container-small{
                 width: 140px;
                 height: 100%;
@@ -93,7 +100,26 @@
                     justify-content: center;
                     margin-right: 0;
 
-                    #brand-logo-img {
+                    #kaddo-logo-white {
+                        display: block;
+                    }
+
+                    #kaddo-logo-black {
+                        display: none;
+                    }
+
+                    @media (max-width: 1024px) {
+
+                        #kaddo-logo-white {
+                            display: none;
+                        }
+
+                        #kaddo-logo-black {
+                            display: block;
+                        }
+                    }
+
+                    .brand-logo-img {
                         width: 100px;
                         height: auto;
                     }
