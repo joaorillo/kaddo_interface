@@ -5,6 +5,12 @@ const rootStyles = getComputedStyle(root);
 window.onbeforeunload = () => window.scrollTo(0, 0);
 
 document.addEventListener('DOMContentLoaded', () => {
+    // #categories-column horizontal padding dynamically calculated
+    ui.categoriesContainerBig = document.getElementById('categories-container-big');
+    ui.categoriesContainerSmall = document.getElementById('categories-container-small');
+    updateCategoriesContainerBigPadding();
+    window.addEventListener('resize', updateCategoriesContainerBigPadding);
+
     // Define 'ui' (User Interface) variables
     ui.searchBarStrip = document.getElementById('search-bar-strip');
     ui.searchBar = document.getElementById('search-bar');
@@ -13,8 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.sidebar = document.getElementById('sidebar');
     ui.sidebarReopenIcon = document.getElementById('sidebar-reopen-icon');
     ui.categoriesColumn = document.getElementById('categories-column');
-    ui.categoriesContainerBig = document.getElementById('categories-container-big');
-    ui.categoriesContainerSmall = document.getElementById('categories-container-small');
     ui.aislesFlagsLines = document.querySelectorAll('.aisle-flag-line');
     ui.aislesFlags = document.querySelectorAll('.aisle-flag');
     ui.categoryCards = document.querySelectorAll('.category-card');
@@ -25,10 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.addedScrollingHeight = ui.firstAisleFlag.getBoundingClientRect().top + window.scrollY;
     ui.firstAisleFlagDistanceToBottom = window.innerHeight - ui.firstAisleFlag.getBoundingClientRect().top;
 
-    // #categories-column horizontal padding dynamically calculated
-    window.addEventListener('load', updateCategoriesContainerBigPadding);
-    window.addEventListener('resize', updateCategoriesContainerBigPadding);
-
     // User clicks on an aisle on ui.sidebar
     const aislesNames = document.querySelectorAll('.aisle-name');
     aislesNames.forEach((aisleName) => {
@@ -38,6 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetId.length > 1) {
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
+                    console.log(`aisleName: ${aisleName}`);
+                    console.log(`    > targetElement.getBoundingClientRect().top: ${targetElement.getBoundingClientRect().top}`);
+                    console.log(`    > window.scrollY: ${window.scrollY}`);
+                    console.log(`    > ui.addedScrollingHeight: ${ui.addedScrollingHeight}`);
                     const y = targetElement.getBoundingClientRect().top + window.scrollY - ui.addedScrollingHeight;
                     window.scrollTo({top: y, behavior: 'smooth'});
                 }
@@ -52,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (firstCard) {
         cardHeight = firstCard.offsetHeight;
     }
+    console.log(`cardHeight: ${cardHeight}`);
     ui.aislesFlags.forEach(flag => {
         const y = flag.getBoundingClientRect().top - ui.addedScrollingHeight;
         const aisleScrollPosition = y - 0.7 * cardHeight - 30;
@@ -88,7 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Identify when user scrolls to a certain aisle
 function onScroll() {
-    const scrollPosition = window.scrollY || root.scrollTop;
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+    console.log(`scrollPosition: ${scrollPosition}`)
     for (let i = ui.aislesScrollPositions.length - 1; i >= 0; i--) {
         var aisle = ui.aislesScrollPositions[i];
         if (scrollPosition >= aisle.aisleScrollPosition) {
