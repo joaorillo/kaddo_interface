@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.sidebar = document.getElementById('sidebar');
     ui.sidebarReopenIcon = document.getElementById('sidebar-reopen-icon');
     ui.categoriesColumn = document.getElementById('categories-column');
+    ui.categoriesContainerBig = document.getElementById('categories-container-big');
+    ui.categoriesContainerSmall = document.getElementById('categories-container-small');
     ui.aislesFlagsLines = document.querySelectorAll('.aisle-flag-line');
     ui.aislesFlags = document.querySelectorAll('.aisle-flag');
     ui.categoryCards = document.querySelectorAll('.category-card');
@@ -19,6 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.firstAisleFlag = document.querySelector('.aisle-flag');
     ui.addedScrollingHeight = ui.firstAisleFlag.getBoundingClientRect().top + window.scrollY;
     ui.firstAisleFlagDistanceToBottom = window.innerHeight - ui.firstAisleFlag.getBoundingClientRect().top;
+
+    // #categories-column horizontal padding dynamically calculated
+    window.addEventListener('load', updateCategoriesContainerBigPadding);
+    window.addEventListener('resize', updateCategoriesContainerBigPadding);
 
     // User clicks on an aisle on ui.sidebar
     const aislesNames = document.querySelectorAll('.aisle-name');
@@ -77,17 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 
-// Set current aisle
-function setCurrentAisle(aisleSlug) {
-    var currentAisle = document.querySelector('.aisle-name.selected');
-    var newCurrentAisle = document.getElementById(`aisle-name-${aisleSlug}`);
-    if (currentAisle && newCurrentAisle && currentAisle != newCurrentAisle) {
-        currentAisle.classList.remove('selected');
-        newCurrentAisle.classList.add('selected');
-    }
-}
-
-
 // Identify when user scrolls to a certain aisle
 function onScroll() {
     const scrollPosition = window.scrollY || document.documentElement.scrollTop;
@@ -100,6 +95,16 @@ function onScroll() {
     }
 }
 
+
+// Set current aisle
+function setCurrentAisle(aisleSlug) {
+    var currentAisle = document.querySelector('.aisle-name.selected');
+    var newCurrentAisle = document.getElementById(`aisle-name-${aisleSlug}`);
+    if (currentAisle && newCurrentAisle && currentAisle != newCurrentAisle) {
+        currentAisle.classList.remove('selected');
+        newCurrentAisle.classList.add('selected');
+    }
+}
 
 
 // Toggle a given class from a given element
@@ -132,4 +137,19 @@ function toggleSearch() {
     ui.aislesFlags.forEach((aisleFlag) => {
         toggleClass(aisleFlag, 'd-none');
     })
+}
+
+
+// Calculate #categories-column horizontal padding
+function updateCategoriesContainerBigPadding() {
+    const totalWidth = ui.categoriesContainerBig.getBoundingClientRect().width - 15.2;
+    console.log(`totalWidth: ${totalWidth}`);
+    const cardWidth = 166;
+    const remainder = totalWidth % cardWidth;
+    const padding = remainder / 2;
+    console.log(`remainder: ${remainder}`);
+    console.log(`padding: ${padding}`);
+    ui.categoriesContainerBig.style.paddingLeft = `${padding}px`;
+    ui.categoriesContainerBig.style.paddingRight = `${padding}px`;
+    ui.categoriesContainerSmall.style.display = 'block';
 }
