@@ -145,7 +145,7 @@ function toggleSearch() {
 }
 
 
-// Calculate #categories-column horizontal padding
+// Calculate #categories-column horizontal padding (responsiveness)
 function updateCategoriesContainerBigPadding() {
     const totalWidth = ui.categoriesContainerBig.getBoundingClientRect().width - 15.2;
     var categoryCardWidth = ui.categoryCardWidthDesktop;
