@@ -1,13 +1,15 @@
 const ui = {};
-const root = document.documentElement;
-const rootStyles = getComputedStyle(root);
 
 window.onbeforeunload = () => window.scrollTo(0, 0);
 
 document.addEventListener('DOMContentLoaded', () => {
+    const root = document.documentElement;
+    const rootStyles = getComputedStyle(root);
+
     // #categories-column horizontal padding dynamically calculated
     ui.categoriesContainerBig = document.getElementById('categories-container-big');
     ui.categoriesContainerSmall = document.getElementById('categories-container-small');
+    ui.categoryCardWidth = parseFloat(rootStyles.getPropertyValue("--category-card-container-width").trim());
     updateCategoriesContainerBigPadding();
     window.addEventListener('resize', updateCategoriesContainerBigPadding);
 
@@ -22,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.aislesFlagsLines = document.querySelectorAll('.aisle-flag-line');
     ui.aislesFlags = document.querySelectorAll('.aisle-flag');
     ui.categoryCards = document.querySelectorAll('.category-card');
-    ui.categoryCardWidth = parseFloat(rootStyles.getPropertyValue("--category-card-container-width").trim());
     ui.categoryContainer = document.getElementById('category-container');
     ui.categoryCardMaionese = document.getElementById('category-card-maionese');
     ui.firstAisleFlag = document.querySelector('.aisle-flag');
@@ -38,10 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetId.length > 1) {
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
-                    console.log(`aisleName: ${aisleName}`);
-                    console.log(`    > targetElement.getBoundingClientRect().top: ${targetElement.getBoundingClientRect().top}`);
-                    console.log(`    > window.scrollY: ${window.scrollY}`);
-                    console.log(`    > ui.addedScrollingHeight: ${ui.addedScrollingHeight}`);
                     const y = targetElement.getBoundingClientRect().top + window.scrollY - ui.addedScrollingHeight;
                     window.scrollTo({top: y, behavior: 'smooth'});
                 }
@@ -56,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (firstCard) {
         cardHeight = firstCard.offsetHeight;
     }
-    console.log(`cardHeight: ${cardHeight}`);
     ui.aislesFlags.forEach(flag => {
         const y = flag.getBoundingClientRect().top - ui.addedScrollingHeight;
         const aisleScrollPosition = y - 0.7 * cardHeight - 30;
@@ -94,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // Identify when user scrolls to a certain aisle
 function onScroll() {
     const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-    console.log(`scrollPosition: ${scrollPosition}`)
     for (let i = ui.aislesScrollPositions.length - 1; i >= 0; i--) {
         var aisle = ui.aislesScrollPositions[i];
         if (scrollPosition >= aisle.aisleScrollPosition) {
@@ -152,8 +147,13 @@ function toggleSearch() {
 // Calculate #categories-column horizontal padding
 function updateCategoriesContainerBigPadding() {
     const totalWidth = ui.categoriesContainerBig.getBoundingClientRect().width - 15.2;
+    console.log(`ui.categoriesContainerBig.getBoundingClientRect().width: ${ui.categoriesContainerBig.getBoundingClientRect().width}`);
+    console.log(`totalWidth: ${totalWidth}`);
+    console.log(`ui.categoryCardWidth: ${ui.categoryCardWidth}`);
     const remainder = totalWidth % ui.categoryCardWidth;
     const padding = remainder / 2;
+    console.log(`remainder: ${remainder}`);
+    console.log(`padding: ${padding}`);
     ui.categoriesContainerBig.style.paddingLeft = `${padding}px`;
     ui.categoriesContainerBig.style.paddingRight = `${padding}px`;
     ui.categoriesContainerSmall.style.display = 'block';
