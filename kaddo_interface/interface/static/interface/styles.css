@@ -131,6 +131,10 @@
     transition: left 0.3s ease;
     z-index: 9999;
 
+    @media (max-width: 1024px) {
+        left: calc(-1 * var(--sidebar-width));
+    }
+
     #aisle-title-container {
         height: var(--search-bar-strip-height);
 
@@ -209,6 +213,12 @@
     background-color: var(--color-gray-300);
     z-index: 9999;
     transition: left 0.3s ease, width 0.3s ease;
+
+    @media (max-width: 1024px) {
+        left: 0;
+        width: 100vw;
+        padding-left: var(--search-bar-strip-maximized-padding-left);
+    }
 
     #search-bar {
         display: flex;
@@ -298,6 +308,11 @@
     background-color: var(--color-gray-200);
     transition: left 0.3s ease, width 0.3s ease;
 
+    @media (max-width: 1024px) {
+        left: 0;
+        width: 100vw;
+    }
+
     .aisle-flag-line {
         width: 100%;
         border: 2px solid var(--color-gray-400);
@@ -318,8 +333,9 @@
     }
 
     .categories-grid {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
+        display: grid;  
+        grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
+        justify-content: start;
         gap: 15px;
         margin-top: 10px;
         margin-bottom: var(--categories-column-padding-ver);
@@ -327,6 +343,7 @@
         .category-card {
             background-color: var(--color-gray-100);
             height: 200px;
+            width: 150px;
             padding: 15px 10px;
             border-radius: var(--default-border-radius);
             display: flex;
