@@ -147,13 +147,8 @@ function toggleSearch() {
 // Calculate #categories-column horizontal padding
 function updateCategoriesContainerBigPadding() {
     const totalWidth = ui.categoriesContainerBig.getBoundingClientRect().width - 15.2;
-    console.log(`ui.categoriesContainerBig.getBoundingClientRect().width: ${ui.categoriesContainerBig.getBoundingClientRect().width}`);
-    console.log(`totalWidth: ${totalWidth}`);
-    console.log(`ui.categoryCardWidth: ${ui.categoryCardWidth}`);
     const remainder = totalWidth % ui.categoryCardWidth;
     const padding = remainder / 2;
-    console.log(`remainder: ${remainder}`);
-    console.log(`padding: ${padding}`);
     ui.categoriesContainerBig.style.paddingLeft = `${padding}px`;
     ui.categoriesContainerBig.style.paddingRight = `${padding}px`;
     ui.categoriesContainerSmall.style.display = 'block';
