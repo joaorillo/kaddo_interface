@@ -196,7 +196,13 @@
 }
 
 #sidebar.minimized {
-    left: var(--sidebar-minimized-left);
+    @media (min-width: 768px) {
+        left: var(--sidebar-minimized-left);
+    }
+    
+    @media (max-width: 767px) {
+        left: -1000px;
+    }
 }
 
 #sidebar-reopen-icon {
@@ -221,7 +227,13 @@
 }
 
 #sidebar-reopen-icon:not(.d-none) {
-    left: calc(var(--sidebar-reopen-icon-left) + var(--sidebar-minimized-left));
+    @media (min-width: 768px) {
+        left: calc(var(--sidebar-reopen-icon-left) + var(--sidebar-minimized-left));
+    }
+    
+    @media (max-width: 767px) {
+        left: calc(var(--sidebar-reopen-icon-left) + var(--sidebar-minimized-left) - 1000px);
+    }
 }
 
 #sidebar-reopen-icon:hover {
@@ -321,9 +333,17 @@
 }
 
 #search-bar-strip.maximized {
-    left: var(--categories-column-maximized-left);
-    width: var(--categories-column-maximized-width);
-    padding-left: var(--search-bar-strip-maximized-padding-left);
+    @media (min-width: 768px) {
+        left: var(--categories-column-maximized-left);
+        width: var(--categories-column-maximized-width);
+        padding-left: var(--search-bar-strip-maximized-padding-left);
+    }
+    
+    @media (max-width: 767px) {
+        left: 0;
+        width: 100vw;
+        padding-left: var(--search-bar-strip-maximized-padding-left);
+    }
 }
 
 #categories-column {
@@ -443,8 +463,15 @@
 }
 
 #categories-column.maximized {
-    left: var(--categories-column-maximized-left);
-    width: var(--categories-column-maximized-width);
+    @media (min-width: 768px) {
+        left: var(--categories-column-maximized-left);
+        width: var(--categories-column-maximized-width);
+    }
+    
+    @media (max-width: 767px) {
+        left: 0;
+        width: 100vw;
+    }
 }
 
 #category-container {
