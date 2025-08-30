@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     window.addEventListener("scroll", onScroll);
 
-    // Search bar input clicked / Category card clicked / Close search icon clicked / Close category card clicked
+    // Search bar input clicked / Category card clicked / Close search icon clicked / Close category card clicked / etc.
     ui.searchBar.addEventListener('click', () => {
         ui.searchBarInput.focus();
         if (!ui.sidebar.classList.contains('minimized')) {
@@ -81,6 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     ui.sidebarReopenIcon.addEventListener('click', () => {
         toggleSearch();
+    })
+    ui.sidebar.addEventListener('click', () => {
+        if (ui.sidebar.classList.contains('minimized')) {
+            toggleSearch();
+        }
     })
 
     // Scroll to top
