@@ -506,6 +506,22 @@
     z-index: 9999;
     overflow: hidden; 
 
+    #close-category-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: transparent;
+        border: none;
+        color: var(--color-gray-500);
+        font-size: 2rem;
+        cursor: pointer;
+        line-height: 1px;
+    }
+
+    #close-category-btn:hover {
+        color: var(--default-color-hover);
+    }
+
     #category-filters-big-container {
         width: 300px;
         height: 100%;

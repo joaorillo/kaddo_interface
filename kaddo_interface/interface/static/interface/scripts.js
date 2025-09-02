@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.sidebar = document.getElementById('sidebar');
     ui.sidebarReopenIcon = document.getElementById('sidebar-reopen-icon');
     ui.categoryContainer = document.getElementById('category-container');
+    ui.closeCategoryButton = document.getElementById('close-category-btn');
     ui.categoryCardMaionese = document.getElementById('category-card-maionese');
     ui.firstAisleFlag = document.querySelector('.aisle-flag');
     ui.addedScrollingHeight = ui.firstAisleFlag.getBoundingClientRect().top + window.scrollY;
@@ -85,6 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleSearch();
     })
     ui.sidebarReopenIcon.addEventListener('click', () => {
+        toggleSearch();
+    })
+    ui.closeCategoryButton.addEventListener('click', () => {
         toggleSearch();
     })
     ui.sidebar.addEventListener('click', () => {
