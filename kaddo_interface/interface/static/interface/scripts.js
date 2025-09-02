@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.sidebar = document.getElementById('sidebar');
     ui.sidebarReopenIcon = document.getElementById('sidebar-reopen-icon');
     ui.categoriesColumn = document.getElementById('categories-column');
+    ui.noResultsWarningContainer = document.getElementById('no-results-warning-container');
     ui.aislesFlagsLines = document.querySelectorAll('.aisle-flag-line');
     ui.aislesFlags = document.querySelectorAll('.aisle-flag');
     ui.categoryCards = document.querySelectorAll('.category-card');
@@ -138,6 +139,7 @@ function toggleSearch() {
     toggleClass(ui.categoriesColumn, 'maximized');
     toggleClass(ui.closeSearchIcon, 'd-none');
     toggleClass(ui.sidebarReopenIcon, 'd-none');
+    toggleClass(ui.noResultsWarningContainer, 'd-none');
     ui.categoryCards.forEach((categoryCard) => {
         toggleClass(categoryCard, 'd-none');
     })
