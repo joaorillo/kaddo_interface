@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const root = document.documentElement;
     const rootStyles = getComputedStyle(root);
 
-    // #categories-column horizontal padding dynamically calculated
+    // Call functions that determine dynamically calculated elements
     ui.categoriesColumn = document.getElementById('categories-column');
     ui.categoriesContainerBig = document.getElementById('categories-container-big');
     ui.categoriesContainerSmall = document.getElementById('categories-container-small');
@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.defaultPaddingRight = parseFloat(rootStyles.getPropertyValue("--default-padding-right").trim());
     ui.noResultsWarningContainer = document.getElementById('no-results-warning-container');
     updateCategoriesContainerBigPadding();
-    window.addEventListener('resize', updateCategoriesContainerBigPadding);
+    ui.categoryFiltersBigContainer = document.getElementById('category-filters-big-container');
+    updateCategoryFilterContainer()
 
     // Define 'ui' (User Interface) variables
     ui.searchBarStrip = document.getElementById('search-bar-strip');
@@ -100,6 +101,10 @@ document.addEventListener('DOMContentLoaded', () => {
         ui.categoryContainer.classList.add('hidden');
     })
 
+    // Window resize behavior
+    window.addEventListener('resize', updateCategoriesContainerBigPadding);
+    window.addEventListener('resize', updateCategoryFilterContainer);
+
     // Scroll to top
     window.scrollTo(0, 0);
 })
@@ -172,43 +177,28 @@ async function updateCategoriesContainerBigPadding() {
     })
 
     if (!ui.noResultsWarningContainer.classList.contains('d-none')) {
-        console.log("entered 1");
         ui.categoriesColumn.style.paddingLeft = `${ui.searchBarStripMaximizedPaddingLeft}px`;
         ui.categoriesColumn.style.paddingRight = `${ui.searchBarStripMaximizedPaddingLeft}px`;
     }
     else {
         await wait(300);
-        console.log("entered 2");
-        
         ui.categoriesColumn.style.paddingLeft = `${ui.defaultPaddingRight}px`;
         ui.categoriesColumn.style.paddingRight = `${ui.defaultPaddingRight}px`;
         var styles = window.getComputedStyle(ui.categoriesColumn);
         var categoriesColumnWidth = parseFloat(styles.getPropertyValue("width").trim());
         var categoriesColumnPaddingLeft = parseFloat(styles.getPropertyValue("padding-left").trim());
-        console.log(`categoriesColumnWidth: ${categoriesColumnWidth}`);
-        console.log(`categoriesColumnPaddingLeft: ${categoriesColumnPaddingLeft}`);
-        
         var availableWidth = (
             categoriesColumnWidth
             - 2 * categoriesColumnPaddingLeft
             - 15.2
         );
-        console.log(`availableWidth: ${availableWidth}`);
-
         const totalWidth = ui.categoriesContainerBig.getBoundingClientRect().width - 15.2;
-        console.log(`totalWidth: ${totalWidth}`);
-
         var categoryCardWidth = ui.categoryCardWidthDesktop;
         if (window.matchMedia("(max-width: 768px)").matches) {
             var categoryCardWidth = ui.categoryCardWidthMobile;
         }
-        console.log(`categoryCardWidth: ${categoryCardWidth}`);
-
         const remainder = availableWidth % categoryCardWidth;
         var padding = remainder / 2;
-        console.log(`remainder: ${remainder}`);
-        console.log(`padding: ${padding}`);
-
         ui.categoriesContainerBig.style.paddingLeft = `${padding}px`;
         ui.categoriesContainerBig.style.paddingRight = `${padding}px`;
         ui.categoriesContainerSmall.style.display = 'block';
@@ -225,6 +215,15 @@ async function updateCategoriesContainerBigPadding() {
         ui.aislesFlags.forEach((aisleFlag) => {
             aisleFlag.classList.remove('d-none');
         })
+    }
+}
+
+
+function updateCategoryFilterContainer() {
+    if (window.innerWidth <= 1024) {
+        ui.categoryFiltersBigContainer.classList.add('minimized');
+    } else {
+        ui.categoryFiltersBigContainer.classList.remove('minimized');
     }
 }
 

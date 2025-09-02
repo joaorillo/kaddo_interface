@@ -530,6 +530,15 @@
         flex-shrink: 0;
         overflow-y: auto;
         padding: var(--category-container-padding-ver) var(--category-container-padding-hor);
+        transition: width 0.3s ease, padding-left 0.3s ease, padding-right 0.3s ease;
+
+        &.minimized {
+            width: 0;
+            overflow: hidden;
+            padding-left: 0;
+            padding-right: 0;
+            border: 0;
+        }
 
         #category-title-container {
             color: var(--color-gray-600);
@@ -537,11 +546,13 @@
             font-size: 18px;
             padding-bottom: var(--category-container-padding-ver);
             border-bottom: 1px solid var(--color-gray-300);
+            width: 100%;
         }
 
         #category-filters-small-container {
             margin-top: 10px;
             padding: 0;
+            width: 100%;
 
             .category-filter-container {
                 margin-top: 20px;
