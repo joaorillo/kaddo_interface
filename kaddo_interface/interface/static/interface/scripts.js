@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.categoryCardMaionese.addEventListener('click', (event) => {
         if (!ui.sidebar.classList.contains('minimized')) {
             event.stopPropagation(); // Prevent the click from bubbling up
-            toggleSearch();
-            toggleClass(ui.categoryContainer, 'hidden');
+            ui.categoryContainer.classList.remove('hidden');
+            toggleSearch(true);
         }
     })
     ui.closeSearchIcon.addEventListener('click', (event) => {
@@ -136,7 +136,12 @@ function toggleClass(element, className) {
 
 
 // Toggle between 'default view' and 'search view'
-function toggleSearch() {
+function toggleSearch(click_category = false) {
+    if (click_category || ui.sidebar.classList.contains('minimized')) {
+        ui.noResultsWarningContainer.classList.add('d-none');
+    } else {
+        ui.noResultsWarningContainer.classList.remove('d-none');
+    }
     ui.searchBarInput.value = '';
     if (ui.sidebar.classList.contains('minimized') && !ui.categoryContainer.classList.contains('hidden')) {
         ui.categoryContainer.classList.add('hidden');
@@ -146,7 +151,6 @@ function toggleSearch() {
     toggleClass(ui.categoriesColumn, 'maximized');
     toggleClass(ui.closeSearchIcon, 'd-none');
     toggleClass(ui.sidebarReopenIcon, 'd-none');
-    toggleClass(ui.noResultsWarningContainer, 'd-none');
     updateCategoriesContainerBigPadding();
 }
 
@@ -207,7 +211,7 @@ async function updateCategoriesContainerBigPadding() {
     }
 
     // Show / hide category cards
-    if (ui.noResultsWarningContainer.classList.contains('d-none')) {
+    if (ui.noResultsWarningContainer.classList.contains('d-none') && ui.categoryContainer.classList.contains('hidden')) {
         ui.categoryCards.forEach((categoryCard) => {
             categoryCard.classList.remove('d-none');
         })
