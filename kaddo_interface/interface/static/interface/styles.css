@@ -40,6 +40,7 @@
     --search-bar-strip-height: 65px;
     --search-bar-strip-width: calc(100% - var(--sidebar-width));
     --search-bar-strip-vertical-padding: 12px;
+    --search-bar-strip-horizontal-padding: 20px;
     --search-bar-strip-maximized-padding-left: 40px;
     --categories-column-top: calc(var(--nav-height) + var(--search-bar-strip-height));
     --categories-column-width: var(--search-bar-strip-width);
@@ -249,7 +250,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--search-bar-strip-vertical-padding) 20px;
+    padding: var(--search-bar-strip-vertical-padding) var(--search-bar-strip-horizontal-padding);
     background-color: var(--color-gray-300);
     z-index: 9999;
     transition: left 0.3s ease, width 0.3s ease;
@@ -333,16 +334,16 @@
 }
 
 #search-bar-strip.maximized {
+    padding-left: var(--search-bar-strip-maximized-padding-left);
+
     @media (min-width: 768px) {
         left: var(--categories-column-maximized-left);
-        width: var(--categories-column-maximized-width);
-        padding-left: var(--search-bar-strip-maximized-padding-left);
+        width: var(--categories-column-maximized-width);   
     }
     
     @media (max-width: 767px) {
         left: 0;
         width: 100vw;
-        padding-left: var(--search-bar-strip-maximized-padding-left);
     }
 }
 
@@ -355,6 +356,18 @@
     padding: var(--categories-column-padding-ver) var(--default-padding-right);
     background-color: var(--color-gray-200);
     transition: left 0.3s ease, width 0.3s ease;
+
+    #no-results-warning-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: start;
+
+        p {
+            font-size: 16px;
+            color: var(--color-gray-600);
+        }
+    }
 
     @media (max-width: 768px) {
         padding-left: 10px;
@@ -371,18 +384,6 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-
-        #no-results-warning-container {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-
-            p {
-                font-size: 16px;
-                color: var(--color-gray-700);
-            }
-        }
 
         #categories-container-small {
             width: 100%;

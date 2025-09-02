@@ -7,10 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const rootStyles = getComputedStyle(root);
 
     // #categories-column horizontal padding dynamically calculated
+    ui.categoriesColumn = document.getElementById('categories-column');
     ui.categoriesContainerBig = document.getElementById('categories-container-big');
     ui.categoriesContainerSmall = document.getElementById('categories-container-small');
     ui.categoryCardWidthDesktop = parseFloat(rootStyles.getPropertyValue("--category-card-container-width-desktop").trim());
     ui.categoryCardWidthMobile = parseFloat(rootStyles.getPropertyValue("--category-card-container-width-mobile").trim());
+    ui.searchBarStripMaximizedPadding = parseFloat(rootStyles.getPropertyValue("--search-bar-strip-maximized-padding-left").trim());
+    ui.noResultsWarningContainer = document.getElementById('no-results-warning-container');
     updateCategoriesContainerBigPadding();
     window.addEventListener('resize', updateCategoriesContainerBigPadding);
 
@@ -21,8 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.closeSearchIcon = document.getElementById('close-search-icon');
     ui.sidebar = document.getElementById('sidebar');
     ui.sidebarReopenIcon = document.getElementById('sidebar-reopen-icon');
-    ui.categoriesColumn = document.getElementById('categories-column');
-    ui.noResultsWarningContainer = document.getElementById('no-results-warning-container');
     ui.aislesFlagsLines = document.querySelectorAll('.aisle-flag-line');
     ui.aislesFlags = document.querySelectorAll('.aisle-flag');
     ui.categoryCards = document.querySelectorAll('.category-card');
@@ -149,6 +150,7 @@ function toggleSearch() {
     ui.aislesFlags.forEach((aisleFlag) => {
         toggleClass(aisleFlag, 'd-none');
     })
+    updateCategoriesContainerBigPadding();
 }
 
 
@@ -160,8 +162,15 @@ function updateCategoriesContainerBigPadding() {
         var categoryCardWidth = ui.categoryCardWidthMobile;
     }
     const remainder = totalWidth % categoryCardWidth;
-    const padding = remainder / 2;
-    ui.categoriesContainerBig.style.paddingLeft = `${padding}px`;
-    ui.categoriesContainerBig.style.paddingRight = `${padding}px`;
-    ui.categoriesContainerSmall.style.display = 'block';
+    var padding = remainder / 2;
+    if (ui.noResultsWarningContainer.classList.contains('d-none')) {
+        ui.categoriesContainerBig.style.paddingLeft = `${padding}px`;
+        ui.categoriesContainerBig.style.paddingRight = `${padding}px`;
+        ui.categoriesContainerSmall.style.display = 'block';
+    } else {
+        console.log("here");
+        console.log(ui.searchBarStripMaximizedPadding);
+        ui.categoriesColumn.style.paddingLeft = `${ui.searchBarStripMaximizedPadding}px`;
+        ui.categoriesColumn.style.paddingRight = `${ui.searchBarStripMaximizedPadding}px`;
+    }
 }
