@@ -10,9 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.categoriesColumn = document.getElementById('categories-column');
     ui.categoriesContainerBig = document.getElementById('categories-container-big');
     ui.categoriesContainerSmall = document.getElementById('categories-container-small');
+    ui.aislesFlagsLines = document.querySelectorAll('.aisle-flag-line');
+    ui.aislesFlags = document.querySelectorAll('.aisle-flag');
+    ui.categoryCards = document.querySelectorAll('.category-card');
     ui.categoryCardWidthDesktop = parseFloat(rootStyles.getPropertyValue("--category-card-container-width-desktop").trim());
     ui.categoryCardWidthMobile = parseFloat(rootStyles.getPropertyValue("--category-card-container-width-mobile").trim());
-    ui.searchBarStripMaximizedPadding = parseFloat(rootStyles.getPropertyValue("--search-bar-strip-maximized-padding-left").trim());
+    ui.searchBarStripMaximizedPaddingLeft = parseFloat(rootStyles.getPropertyValue("--search-bar-strip-maximized-padding-left").trim());
+    ui.defaultPaddingRight = parseFloat(rootStyles.getPropertyValue("--default-padding-right").trim());
     ui.noResultsWarningContainer = document.getElementById('no-results-warning-container');
     updateCategoriesContainerBigPadding();
     window.addEventListener('resize', updateCategoriesContainerBigPadding);
@@ -24,9 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.closeSearchIcon = document.getElementById('close-search-icon');
     ui.sidebar = document.getElementById('sidebar');
     ui.sidebarReopenIcon = document.getElementById('sidebar-reopen-icon');
-    ui.aislesFlagsLines = document.querySelectorAll('.aisle-flag-line');
-    ui.aislesFlags = document.querySelectorAll('.aisle-flag');
-    ui.categoryCards = document.querySelectorAll('.category-card');
     ui.categoryContainer = document.getElementById('category-container');
     ui.categoryCardMaionese = document.getElementById('category-card-maionese');
     ui.firstAisleFlag = document.querySelector('.aisle-flag');
@@ -70,15 +71,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!ui.sidebar.classList.contains('minimized')) {
             toggleSearch();
         }
+        ui.categoryContainer.classList.add('hidden');
     })
-    ui.categoryCardMaionese.addEventListener('click', () => {
+    ui.categoryCardMaionese.addEventListener('click', (event) => {
         if (!ui.sidebar.classList.contains('minimized')) {
+            event.stopPropagation(); // Prevent the click from bubbling up
             toggleSearch();
             toggleClass(ui.categoryContainer, 'hidden');
         }
     })
     ui.closeSearchIcon.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevents the click from bubbling up to #search-bar
+        event.stopPropagation(); // Prevent the click from bubbling up
         toggleSearch();
     })
     ui.sidebarReopenIcon.addEventListener('click', () => {
@@ -88,6 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (ui.sidebar.classList.contains('minimized')) {
             toggleSearch();
         }
+    })
+    ui.categoriesColumn.addEventListener('click', () => {
+        ui.categoryContainer.classList.add('hidden');
     })
 
     // Scroll to top
@@ -141,36 +147,80 @@ function toggleSearch() {
     toggleClass(ui.closeSearchIcon, 'd-none');
     toggleClass(ui.sidebarReopenIcon, 'd-none');
     toggleClass(ui.noResultsWarningContainer, 'd-none');
-    ui.categoryCards.forEach((categoryCard) => {
-        toggleClass(categoryCard, 'd-none');
-    })
-    ui.aislesFlagsLines.forEach((aisleFlagLine) => {
-        toggleClass(aisleFlagLine, 'd-none');
-    })
-    ui.aislesFlags.forEach((aisleFlag) => {
-        toggleClass(aisleFlag, 'd-none');
-    })
     updateCategoriesContainerBigPadding();
 }
 
 
 // Calculate #categories-column horizontal padding (responsiveness)
-function updateCategoriesContainerBigPadding() {
-    const totalWidth = ui.categoriesContainerBig.getBoundingClientRect().width - 15.2;
-    var categoryCardWidth = ui.categoryCardWidthDesktop;
-    if (window.matchMedia("(max-width: 768px)").matches) {
-        var categoryCardWidth = ui.categoryCardWidthMobile;
+async function updateCategoriesContainerBigPadding() {
+    ui.categoryCards.forEach((categoryCard) => {
+        categoryCard.classList.add('d-none');
+    })
+    ui.aislesFlagsLines.forEach((aisleFlagLine) => {
+        aisleFlagLine.classList.add('d-none');
+    })
+    ui.aislesFlags.forEach((aisleFlag) => {
+        aisleFlag.classList.add('d-none');
+    })
+
+    if (!ui.noResultsWarningContainer.classList.contains('d-none')) {
+        console.log("entered 1");
+        ui.categoriesColumn.style.paddingLeft = `${ui.searchBarStripMaximizedPaddingLeft}px`;
+        ui.categoriesColumn.style.paddingRight = `${ui.searchBarStripMaximizedPaddingLeft}px`;
     }
-    const remainder = totalWidth % categoryCardWidth;
-    var padding = remainder / 2;
-    if (ui.noResultsWarningContainer.classList.contains('d-none')) {
+    else {
+        await wait(300);
+        console.log("entered 2");
+        
+        ui.categoriesColumn.style.paddingLeft = `${ui.defaultPaddingRight}px`;
+        ui.categoriesColumn.style.paddingRight = `${ui.defaultPaddingRight}px`;
+        var styles = window.getComputedStyle(ui.categoriesColumn);
+        var categoriesColumnWidth = parseFloat(styles.getPropertyValue("width").trim());
+        var categoriesColumnPaddingLeft = parseFloat(styles.getPropertyValue("padding-left").trim());
+        console.log(`categoriesColumnWidth: ${categoriesColumnWidth}`);
+        console.log(`categoriesColumnPaddingLeft: ${categoriesColumnPaddingLeft}`);
+        
+        var availableWidth = (
+            categoriesColumnWidth
+            - 2 * categoriesColumnPaddingLeft
+            - 15.2
+        );
+        console.log(`availableWidth: ${availableWidth}`);
+
+        const totalWidth = ui.categoriesContainerBig.getBoundingClientRect().width - 15.2;
+        console.log(`totalWidth: ${totalWidth}`);
+
+        var categoryCardWidth = ui.categoryCardWidthDesktop;
+        if (window.matchMedia("(max-width: 768px)").matches) {
+            var categoryCardWidth = ui.categoryCardWidthMobile;
+        }
+        console.log(`categoryCardWidth: ${categoryCardWidth}`);
+
+        const remainder = availableWidth % categoryCardWidth;
+        var padding = remainder / 2;
+        console.log(`remainder: ${remainder}`);
+        console.log(`padding: ${padding}`);
+
         ui.categoriesContainerBig.style.paddingLeft = `${padding}px`;
         ui.categoriesContainerBig.style.paddingRight = `${padding}px`;
         ui.categoriesContainerSmall.style.display = 'block';
-    } else {
-        console.log("here");
-        console.log(ui.searchBarStripMaximizedPadding);
-        ui.categoriesColumn.style.paddingLeft = `${ui.searchBarStripMaximizedPadding}px`;
-        ui.categoriesColumn.style.paddingRight = `${ui.searchBarStripMaximizedPadding}px`;
     }
+
+    // Show / hide category cards
+    if (ui.noResultsWarningContainer.classList.contains('d-none')) {
+        ui.categoryCards.forEach((categoryCard) => {
+            categoryCard.classList.remove('d-none');
+        })
+        ui.aislesFlagsLines.forEach((aisleFlagLine) => {
+            aisleFlagLine.classList.remove('d-none');
+        })
+        ui.aislesFlags.forEach((aisleFlag) => {
+            aisleFlag.classList.remove('d-none');
+        })
+    }
+}
+
+
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

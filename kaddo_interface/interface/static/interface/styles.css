@@ -353,7 +353,9 @@
     top: var(--categories-column-top);
     width: var(--categories-column-width);
     min-height: calc(100vh - var(--categories-column-top));
-    padding: var(--categories-column-padding-ver) var(--default-padding-right);
+    padding-top: var(--categories-column-padding-ver);
+    padding-left: var(--default-padding-right);
+    padding-right: var(--default-padding-right);
     background-color: var(--color-gray-200);
     transition: left 0.3s ease, width 0.3s ease;
 
