@@ -49,13 +49,14 @@
     --categories-column-padding-ver: 30px;
     --category-card-container-width-desktop: 166px;
     --category-card-container-width-mobile: 110px;
-    --category-container-margin: 20px;
+    --category-container-margin-top: 25px;
     --category-container-padding-hor: 25px;
     --category-container-padding-ver: 13px;
-    --category-container-top: calc(var(--categories-column-top) + var(--category-container-margin));
+    --category-container-top: calc(var(--categories-column-top) + var(--category-container-margin-top));
     --category-container-left: calc(var(--categories-column-maximized-left) + var(--search-bar-strip-maximized-padding-left));
-    --category-container-height: calc(100% - var(--categories-column-top) - 2 * var(--category-container-margin));
+    --category-container-height: calc(100% - var(--categories-column-top) - 1.5 * var(--category-container-margin-top));
     --category-container-width: calc(100% - 2 * var(--category-container-left));
+    --category-container-flag-height: calc(var(--category-container-margin-top) - 3px)
 }
 
 
@@ -498,13 +499,28 @@
     left: var(--category-container-left);
     height: var(--category-container-height);
     width: var(--category-container-width);
-    padding: 0;
+    padding: 5px 2px;
     display: flex;
     background-color: white;
     border: 2px solid var(--color-gray-600);
     border-radius: 5px;
+    border-top-left-radius: 0;
     z-index: 9999;
-    overflow: hidden; 
+
+    #category-container-flag {
+        position: absolute;
+        top: calc(-1 * var(--category-container-flag-height));
+        left: -2px;
+        width: auto;
+        height: var(--category-container-flag-height);
+        background: var(--color-gray-100);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--color-gray-600);
+        border: 2px solid var(--color-gray-600);
+        border-top-right-radius: 10px;
+        padding: 0 12px 0 10px;
+    }
 
     #close-category-btn {
         position: absolute;
@@ -516,6 +532,7 @@
         font-size: 2rem;
         cursor: pointer;
         line-height: 1px;
+        outline: none;
     }
 
     #close-category-btn:hover {
