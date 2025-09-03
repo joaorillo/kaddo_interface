@@ -280,13 +280,15 @@
 
         #search-icon {
             font-size: 1rem;
-            margin: var(--default-border-radius);
+            margin-right: var(--default-border-radius);
             color: var(--color-gray-500);
             flex-shrink: 0;
         }
 
         #search-bar-input {
             flex-grow: 1;
+            flex-shrink: 1;
+            min-width: 0;
             height: 100%;
             border: 0;
             margin-left: 0;
@@ -380,13 +382,6 @@
     @media (max-width: 1023px) {
         left: 0;
         width: 100vw;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    @media (max-width: 767px) {
-        padding-left: 10px;
-        padding-right: 10px;
     }
 
     #categories-container-big {
