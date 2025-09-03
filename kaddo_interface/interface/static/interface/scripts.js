@@ -175,7 +175,6 @@ async function updateCategoriesContainerBigPadding() {
     ui.aislesFlags.forEach((aisleFlag) => {
         aisleFlag.classList.add('d-none');
     })
-
     if (!ui.noResultsWarningContainer.classList.contains('d-none')) {
         ui.categoriesColumn.style.paddingLeft = `${ui.searchBarStripMaximizedPaddingLeft}px`;
         ui.categoriesColumn.style.paddingRight = `${ui.searchBarStripMaximizedPaddingLeft}px`;
@@ -220,7 +219,7 @@ async function updateCategoriesContainerBigPadding() {
 
 
 function updateCategoryFilterContainer() {
-    if (window.innerWidth <= 1024) {
+    if (window.innerWidth < 1024) {
         ui.categoryFiltersBigContainer.classList.add('minimized');
     } else {
         ui.categoryFiltersBigContainer.classList.remove('minimized');

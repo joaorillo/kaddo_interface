@@ -50,11 +50,12 @@
     --category-card-container-width-desktop: 166px;
     --category-card-container-width-mobile: 110px;
     --category-container-margin-top: 25px;
-    --category-container-padding-hor: 25px;
+    --category-container-padding-hor-desktop: 25px;
+    --category-container-padding-hor-mobile: 15px;
     --category-container-padding-ver: 13px;
     --category-container-top: calc(var(--categories-column-top) + var(--category-container-margin-top));
     --category-container-left-desktop: calc(var(--categories-column-maximized-left) + var(--search-bar-strip-maximized-padding-left));
-    --category-container-left-tablet: var(--category-container-left-desktop);
+    --category-container-left-tablet: 8vw;
     --category-container-left-mobile: 5vw;
     --category-container-height: calc(100% - var(--categories-column-top) - 1.5 * var(--category-container-margin-top));
     --category-container-width-desktop: calc(100% - 2 * var(--category-container-left-desktop));
@@ -84,7 +85,7 @@
             align-items: center;
             justify-content: center;
 
-            @media (max-width: 1024px) {
+            @media (max-width: 1023px) {
                 justify-content: start;
                 width: 200px;
                 padding-left: var(--default-padding-left);
@@ -115,7 +116,7 @@
                         display: none;
                     }
 
-                    @media (max-width: 1024px) {
+                    @media (max-width: 1023px) {
 
                         #kaddo-logo-white {
                             display: none;
@@ -165,7 +166,7 @@
     transition: left 0.3s ease;
     z-index: 9999;
 
-    @media (max-width: 1024px) {
+    @media (max-width: 1023px) {
         left: calc(-1 * var(--sidebar-width));
     }
 
@@ -206,7 +207,7 @@
         left: var(--sidebar-minimized-left);
     }
     
-    @media (max-width: 767px) {
+    @media (max-width: 1023px) {
         left: -1000px;
     }
 }
@@ -233,11 +234,11 @@
 }
 
 #sidebar-reopen-icon:not(.d-none) {
-    @media (min-width: 768px) {
+    @media (min-width: 1024px) {
         left: calc(var(--sidebar-reopen-icon-left) + var(--sidebar-minimized-left));
     }
     
-    @media (max-width: 767px) {
+    @media (max-width: 1023px) {
         left: calc(var(--sidebar-reopen-icon-left) + var(--sidebar-minimized-left) - 1000px);
     }
 }
@@ -260,7 +261,7 @@
     z-index: 9999;
     transition: left 0.3s ease, width 0.3s ease;
 
-    @media (max-width: 1024px) {
+    @media (max-width: 1023px) {
         left: 0;
         width: 100vw;
         padding-left: var(--search-bar-strip-maximized-padding-left);
@@ -341,12 +342,12 @@
 #search-bar-strip.maximized {
     padding-left: var(--search-bar-strip-maximized-padding-left);
 
-    @media (min-width: 768px) {
+    @media (min-width: 1024px) {
         left: var(--categories-column-maximized-left);
         width: var(--categories-column-maximized-width);   
     }
     
-    @media (max-width: 767px) {
+    @media (max-width: 1023px) {
         left: 0;
         width: 100vw;
     }
@@ -376,14 +377,16 @@
         }
     }
 
-    @media (max-width: 768px) {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
-    @media (max-width: 1024px) {
+    @media (max-width: 1023px) {
         left: 0;
         width: 100vw;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    @media (max-width: 767px) {
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     #categories-container-big {
@@ -423,7 +426,7 @@
                 margin-top: 10px;
                 margin-bottom: var(--categories-column-padding-ver);
 
-                @media (max-width: 768px) {
+                @media (max-width: 1023px) {
                     grid-template-columns: repeat(auto-fit, var(--category-card-container-width-mobile));
                 }
 
@@ -433,7 +436,7 @@
                     padding: 5px 7px;
                     background-color: transparent;
 
-                    @media (max-width: 768px) {
+                    @media (max-width: 1023px) {
                         width: var(--category-card-container-width-mobile);
                     }
 
@@ -488,7 +491,7 @@
         width: var(--categories-column-maximized-width);
     }
     
-    @media (max-width: 767px) {
+    @media (max-width: 1023px) {
         left: 0;
         width: 100vw;
     }
@@ -512,7 +515,7 @@
     z-index: 9999;
     transition: width 0.3s ease;
 
-    @media (max-width: 1024px) {
+    @media (max-width: 1023px) {
         left: var(--category-container-left-tablet);
         width: var(--category-container-width-tablet);
     }
@@ -561,7 +564,7 @@
         border-right: 1px solid var(--color-gray-600);
         flex-shrink: 0;
         overflow-y: auto;
-        padding: var(--category-container-padding-ver) var(--category-container-padding-hor);
+        padding: var(--category-container-padding-ver) var(--category-container-padding-hor-desktop);
         transition: width 0.3s ease, padding-left 0.3s ease, padding-right 0.3s ease;
 
         &.minimized {
@@ -615,15 +618,25 @@
         flex: 1;
         height: 100%;
         overflow-y: auto;
-        padding: var(--category-container-padding-ver) var(--category-container-padding-hor);
+        padding: var(--category-container-padding-ver) var(--category-container-padding-hor-desktop);
+
+        @media (max-width: 767px) {
+            padding: var(--category-container-padding-ver) var(--category-container-padding-hor-mobile);
+        }
 
         #product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, var(--category-card-container-width-desktop));
+            justify-content: center;
+            gap: 15px;
+
+            @media (max-width: 767px) {
+                grid-template-columns: repeat(auto-fit, var(--category-card-container-width-mobile));
+                gap: 10px;
+            }
 
             .product-card {
-                padding: 1rem;
+                padding: 10px;
                 text-align: center;
 
                 .product-image {
