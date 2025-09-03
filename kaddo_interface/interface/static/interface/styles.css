@@ -611,14 +611,33 @@
             }
         }
 
-        #category-title-container {
-            color: var(--color-gray-600);
-            font-weight: 500;
-            font-size: 18px;
+        #category-reordering-btn-container {
             padding-bottom: var(--category-container-padding-ver);
             border-bottom: 1px solid var(--color-gray-300);
             width: 100%;
             flex-shrink: 0;
+
+            #reordering-btn {
+                display: flex;
+                align-items: center;
+                background-color: var(--color-gray-300);
+                border: 0px;
+                border-radius: 5px;
+                width: 90%;
+                padding: 6px 15px;
+                color: var(--color-gray-600);
+                font-weight: 500;
+                cursor: pointer;
+                gap: 6px;
+
+                i {
+                    margin-left: 20px;
+                }
+            }
+
+            #reordering-options-menu {
+                display: none;
+            }
         }
 
         #category-filters-small-container {
