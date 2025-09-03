@@ -50,8 +50,9 @@
     --category-card-container-width-desktop: 166px;
     --category-card-container-width-mobile: 130px;
     --category-container-margin-top: 25px;
-    --category-container-padding-hor-desktop: 25px;
-    --category-container-padding-hor-mobile: 15px;
+    --category-container-padding-left-desktop: 25px;
+    --category-container-padding-right-desktop: 5px;
+    --category-container-padding-left-mobile: 15px;
     --category-container-padding-ver: 13px;
     --category-container-top: calc(var(--categories-column-top) + var(--category-container-margin-top));
     --category-container-left-desktop: calc(var(--categories-column-maximized-left) + var(--search-bar-strip-maximized-padding-left));
@@ -583,11 +584,16 @@
     #category-filters-big-container {
         width: 300px;
         height: 100%;
+        display: flex;
+        flex-direction: column;
         background-color: var(--color-gray-100);
         border-right: 1px solid var(--color-gray-600);
         flex-shrink: 0;
-        overflow-y: auto;
-        padding: var(--category-container-padding-ver) var(--category-container-padding-hor-desktop);
+        overflow: hidden;
+        padding-top: var(--category-container-padding-ver);
+        padding-bottom: 5px;
+        padding-left: var(--category-container-padding-left-desktop);
+        padding-right: var(--category-container-padding-right-desktop);
         transition: width 0.3s ease, padding-left 0.3s ease, padding-right 0.3s ease;
 
         @media (max-width: 1023px) {
@@ -612,12 +618,15 @@
             padding-bottom: var(--category-container-padding-ver);
             border-bottom: 1px solid var(--color-gray-300);
             width: 100%;
+            flex-shrink: 0;
         }
 
         #category-filters-small-container {
             margin-top: 10px;
             padding: 0;
             width: 100%;
+            flex-grow: 1;
+            overflow-y: auto;
 
             .category-filter-container {
                 margin-top: 20px;
@@ -648,10 +657,10 @@
         flex: 1;
         height: 100%;
         overflow-y: auto;
-        padding: var(--category-container-padding-ver) var(--category-container-padding-hor-desktop);
+        padding: var(--category-container-padding-ver) var(--category-container-padding-left-desktop);
 
         @media (max-width: 767px) {
-            padding: var(--category-container-padding-ver) var(--category-container-padding-hor-mobile);
+            padding: var(--category-container-padding-ver) var(--category-container-padding-left-mobile);
         }
 
         #product-grid {
