@@ -53,9 +53,13 @@
     --category-container-padding-hor: 25px;
     --category-container-padding-ver: 13px;
     --category-container-top: calc(var(--categories-column-top) + var(--category-container-margin-top));
-    --category-container-left: calc(var(--categories-column-maximized-left) + var(--search-bar-strip-maximized-padding-left));
+    --category-container-left-desktop: calc(var(--categories-column-maximized-left) + var(--search-bar-strip-maximized-padding-left));
+    --category-container-left-tablet: var(--category-container-left-desktop);
+    --category-container-left-mobile: 5vw;
     --category-container-height: calc(100% - var(--categories-column-top) - 1.5 * var(--category-container-margin-top));
-    --category-container-width: calc(100% - 2 * var(--category-container-left));
+    --category-container-width-desktop: calc(100% - 2 * var(--category-container-left-desktop));
+    --category-container-width-tablet: calc(100% - 2 * var(--category-container-left-tablet));
+    --category-container-width-mobile: calc(100% - 2 * var(--category-container-left-mobile));
     --category-container-flag-height: calc(var(--category-container-margin-top) - 3px)
 }
 
@@ -496,9 +500,9 @@
     visibility: visible;
     position: fixed;
     top: var(--category-container-top);
-    left: var(--category-container-left);
+    left: var(--category-container-left-desktop);
     height: var(--category-container-height);
-    width: var(--category-container-width);
+    width: var(--category-container-width-desktop);
     padding: 5px 2px;
     display: flex;
     background-color: white;
@@ -506,6 +510,17 @@
     border-radius: 5px;
     border-top-left-radius: 0;
     z-index: 9999;
+    transition: width 0.3s ease;
+
+    @media (max-width: 1024px) {
+        left: var(--category-container-left-tablet);
+        width: var(--category-container-width-tablet);
+    }
+
+    @media (max-width: 767px) {
+        left: var(--category-container-left-mobile);
+        width: var(--category-container-width-mobile);
+    }
 
     #category-container-flag {
         position: absolute;
