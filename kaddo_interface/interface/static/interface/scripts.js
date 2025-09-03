@@ -160,12 +160,12 @@ function toggleSearch(click_category = false) {
     toggleClass(ui.categoriesColumn, 'maximized');
     toggleClass(ui.closeSearchIcon, 'd-none');
     toggleClass(ui.sidebarReopenIcon, 'd-none');
-    updateCategoriesContainerBigPadding();
+    updateCategoriesContainerBigPadding(wait_resize = false);
 }
 
 
 // Calculate #categories-column horizontal padding (responsiveness)
-async function updateCategoriesContainerBigPadding() {
+async function updateCategoriesContainerBigPadding(wait_resize = true) {
     ui.categoryCards.forEach((categoryCard) => {
         categoryCard.classList.add('d-none');
     })
@@ -180,7 +180,9 @@ async function updateCategoriesContainerBigPadding() {
         ui.categoriesColumn.style.paddingRight = `${ui.searchBarStripMaximizedPaddingLeft}px`;
     }
     else {
-        await wait(300);
+        if (wait_resize) {
+            await wait(300);
+        }
         if (window.matchMedia("(max-width: 767px)").matches) {
             ui.categoriesColumn.style.paddingLeft = '15px';
             ui.categoriesColumn.style.paddingRight = '15px';
