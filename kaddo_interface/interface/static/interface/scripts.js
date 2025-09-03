@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.defaultPaddingRight = parseFloat(rootStyles.getPropertyValue("--default-padding-right").trim());
     ui.noResultsWarningContainer = document.getElementById('no-results-warning-container');
     updateCategoriesContainerBigPadding();
+    ui.categoryContainer = document.getElementById('category-container');
     ui.categoryFiltersBigContainer = document.getElementById('category-filters-big-container');
     updateCategoryFilterContainer()
 
@@ -29,9 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.closeSearchIcon = document.getElementById('close-search-icon');
     ui.sidebar = document.getElementById('sidebar');
     ui.sidebarReopenIcon = document.getElementById('sidebar-reopen-icon');
-    ui.categoryContainer = document.getElementById('category-container');
+    ui.filtersButton = document.getElementById('filters-btn');
     ui.closeCategoryButton = document.getElementById('close-category-btn');
     ui.categoryCardMaionese = document.getElementById('category-card-maionese');
+    ui.categoryProductsContainer = document.getElementById('category-products-container');
     ui.firstAisleFlag = document.querySelector('.aisle-flag');
     ui.addedScrollingHeight = ui.firstAisleFlag.getBoundingClientRect().top + window.scrollY;
     ui.firstAisleFlagDistanceToBottom = window.innerHeight - ui.firstAisleFlag.getBoundingClientRect().top;
@@ -101,6 +103,16 @@ document.addEventListener('DOMContentLoaded', () => {
         ui.categoryContainer.classList.add('hidden');
     })
 
+    // Click on filter button (category container - mobile)
+    ui.filtersButton.addEventListener('click', () => {
+        toggleFilterMobile();
+    })
+    ui.categoryProductsContainer.addEventListener('click', () => {
+        if (ui.categoryContainer.classList.contains('shaded')) {
+            toggleFilterMobile();
+        }
+    })
+
     // Window resize behavior
     window.addEventListener('resize', updateCategoriesContainerBigPadding);
     window.addEventListener('resize', updateCategoryFilterContainer);
@@ -144,6 +156,13 @@ function toggleClass(element, className) {
 }
 
 
+// Show / hide filters on category container (mobile)
+function toggleFilterMobile() {
+    toggleClass(ui.categoryContainer, 'shaded');
+    toggleClass(ui.categoryFiltersBigContainer, 'minimized-mobile');
+}
+
+
 // Toggle between 'default view' and 'search view'
 function toggleSearch(click_category = false) {
     if (click_category || ui.sidebar.classList.contains('minimized')) {
@@ -161,6 +180,9 @@ function toggleSearch(click_category = false) {
     toggleClass(ui.closeSearchIcon, 'd-none');
     toggleClass(ui.sidebarReopenIcon, 'd-none');
     updateCategoriesContainerBigPadding(wait_resize = false);
+    if (ui.categoryContainer.classList.contains('shaded')) {
+        toggleFilterMobile();
+    }
 }
 
 
@@ -227,9 +249,11 @@ async function updateCategoriesContainerBigPadding(wait_resize = true) {
 
 function updateCategoryFilterContainer() {
     if (window.innerWidth < 1024) {
-        ui.categoryFiltersBigContainer.classList.add('minimized');
+        ui.categoryFiltersBigContainer.classList.add('minimized-mobile');
+        ui.categoryContainer.classList.remove('shaded');
     } else {
-        ui.categoryFiltersBigContainer.classList.remove('minimized');
+        ui.categoryFiltersBigContainer.classList.remove('minimized-mobile');
+        ui.categoryContainer.classList.remove('shaded');
     }
 }
 
