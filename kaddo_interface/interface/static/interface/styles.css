@@ -48,7 +48,7 @@
     --categories-column-maximized-width: calc(100% - var(--categories-column-maximized-left));
     --categories-column-padding-ver: 30px;
     --category-card-container-width-desktop: 166px;
-    --category-card-container-width-mobile: 110px;
+    --category-card-container-width-mobile: 130px;
     --category-container-margin-top: 25px;
     --category-container-padding-hor-desktop: 25px;
     --category-container-padding-hor-mobile: 15px;

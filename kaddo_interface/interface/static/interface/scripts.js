@@ -181,8 +181,13 @@ async function updateCategoriesContainerBigPadding() {
     }
     else {
         await wait(300);
-        ui.categoriesColumn.style.paddingLeft = `${ui.defaultPaddingRight}px`;
-        ui.categoriesColumn.style.paddingRight = `${ui.defaultPaddingRight}px`;
+        if (window.matchMedia("(max-width: 767px)").matches) {
+            ui.categoriesColumn.style.paddingLeft = '15px';
+            ui.categoriesColumn.style.paddingRight = '15px';
+        } else {
+            ui.categoriesColumn.style.paddingLeft = `${ui.defaultPaddingRight}px`;
+            ui.categoriesColumn.style.paddingRight = `${ui.defaultPaddingRight}px`;
+        }
         var styles = window.getComputedStyle(ui.categoriesColumn);
         var categoriesColumnWidth = parseFloat(styles.getPropertyValue("width").trim());
         var categoriesColumnPaddingLeft = parseFloat(styles.getPropertyValue("padding-left").trim());
