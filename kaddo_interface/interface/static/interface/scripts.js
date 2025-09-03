@@ -193,7 +193,7 @@ async function updateCategoriesContainerBigPadding() {
         );
         const totalWidth = ui.categoriesContainerBig.getBoundingClientRect().width - 15.2;
         var categoryCardWidth = ui.categoryCardWidthDesktop;
-        if (window.matchMedia("(max-width: 768px)").matches) {
+        if (window.matchMedia("(max-width: 767px)").matches) {
             var categoryCardWidth = ui.categoryCardWidthMobile;
         }
         const remainder = availableWidth % categoryCardWidth;
