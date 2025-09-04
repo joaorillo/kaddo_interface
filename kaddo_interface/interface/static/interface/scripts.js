@@ -19,9 +19,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     ui.defaultPaddingRight = parseFloat(rootStyles.getPropertyValue("--default-padding-right").trim());
     ui.noResultsWarningContainer = document.getElementById('no-results-warning-container');
     ui.categoryContainer = document.getElementById('category-container');
+    ui.searchViewOpen = false;
     await updateCategoriesContainerBigPadding();
     ui.categoryFiltersBigContainer = document.getElementById('category-filters-big-container');
-    updateCategoryFilterContainer()
+    updateCategoryFilterContainer();
 
     // Define 'ui' (User Interface) variables
     ui.searchBarStrip = document.getElementById('search-bar-strip');
@@ -37,6 +38,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     ui.firstAisleFlag = document.querySelector('.aisle-flag');
     ui.addedScrollingHeight = ui.firstAisleFlag.getBoundingClientRect().top + window.scrollY;
     ui.firstAisleFlagDistanceToBottom = window.innerHeight - ui.firstAisleFlag.getBoundingClientRect().top;
+    ui.scrollY = 0;
+    ui.searchViewActive = false;
 
     // User clicks on an aisle on ui.sidebar
     const aislesNames = document.querySelectorAll('.aisle-name');
@@ -73,7 +76,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     ui.searchBar.addEventListener('click', () => {
         ui.searchBarInput.focus();
         if (!ui.sidebar.classList.contains('minimized')) {
-            toggleSearch();
+            toggleSearch(true);
         }
         ui.categoryContainer.classList.add('hidden');
     })
@@ -81,7 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!ui.sidebar.classList.contains('minimized')) {
             event.stopPropagation(); // Prevent the click from bubbling up
             ui.categoryContainer.classList.remove('hidden');
-            toggleSearch(true);
+            toggleSearch(true, true);
         }
     })
     ui.closeSearchIcon.addEventListener('click', (event) => {
@@ -164,30 +167,47 @@ function toggleFilterMobile() {
 
 
 // Toggle between 'default view' and 'search view'
-function toggleSearch(click_category = false) {
-    if (click_category || ui.sidebar.classList.contains('minimized')) {
+async function toggleSearch(openSearchView=false, clickCategory=false) {
+    // Save user position on screen
+    if (openSearchView) {
+        ui.scrollPosition = window.scrollY;
+        ui.searchViewOpen = true;
+    } else {
+        ui.searchViewOpen = false;
+    }
+    // Show / hide 'no results warning'
+    if (clickCategory || !openSearchView) {
         ui.noResultsWarningContainer.classList.add('d-none');
     } else {
         ui.noResultsWarningContainer.classList.remove('d-none');
     }
+    // Clean 'search bar input'
     ui.searchBarInput.value = '';
-    if (ui.sidebar.classList.contains('minimized') && !ui.categoryContainer.classList.contains('hidden')) {
+    // Hide 'category container' (if applicable)
+    if (!clickCategory) {
         ui.categoryContainer.classList.add('hidden');
     }
+    // Show / hide other elements
     toggleClass(ui.sidebar, 'minimized');
     toggleClass(ui.searchBarStrip, 'maximized');
     toggleClass(ui.categoriesColumn, 'maximized');
     toggleClass(ui.closeSearchIcon, 'd-none');
     toggleClass(ui.sidebarReopenIcon, 'd-none');
-    updateCategoriesContainerBigPadding(wait_resize = false);
+    // Update padding from 'categories container' (responsiveness)
+    await updateCategoriesContainerBigPadding();
+    // Close 'filter container' (mobile)
     if (ui.categoryContainer.classList.contains('shaded')) {
         toggleFilterMobile();
+    }
+    // If leaving search view, scroll to where user was
+    if (!openSearchView) {
+        window.scrollTo({top: ui.scrollPosition, behavior: "smooth"});
     }
 }
 
 
 // Calculate #categories-column horizontal padding (responsiveness)
-async function updateCategoriesContainerBigPadding(wait_resize = true) {
+async function updateCategoriesContainerBigPadding(waitResize=true) {
     ui.categoryCards.forEach((categoryCard) => {
         categoryCard.classList.add('d-none');
     })
@@ -202,7 +222,7 @@ async function updateCategoriesContainerBigPadding(wait_resize = true) {
         ui.categoriesColumn.style.paddingRight = `${ui.searchBarStripMaximizedPaddingLeft}px`;
     }
     else {
-        if (wait_resize) {
+        if (waitResize) {
             await wait(300);
         }
         if (window.matchMedia("(max-width: 767px)").matches) {
@@ -233,7 +253,7 @@ async function updateCategoriesContainerBigPadding(wait_resize = true) {
     }
 
     // Show / hide category cards
-    if (ui.noResultsWarningContainer.classList.contains('d-none') && ui.categoryContainer.classList.contains('hidden')) {
+    if (!ui.searchViewOpen) {
         ui.categoryCards.forEach((categoryCard) => {
             categoryCard.classList.remove('d-none');
         })
