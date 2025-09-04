@@ -2,7 +2,7 @@ const ui = {};
 
 window.onbeforeunload = () => window.scrollTo(0, 0);
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const root = document.documentElement;
     const rootStyles = getComputedStyle(root);
 
@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.searchBarStripMaximizedPaddingLeft = parseFloat(rootStyles.getPropertyValue("--search-bar-strip-maximized-padding-left").trim());
     ui.defaultPaddingRight = parseFloat(rootStyles.getPropertyValue("--default-padding-right").trim());
     ui.noResultsWarningContainer = document.getElementById('no-results-warning-container');
-    updateCategoriesContainerBigPadding();
     ui.categoryContainer = document.getElementById('category-container');
+    await updateCategoriesContainerBigPadding();
     ui.categoryFiltersBigContainer = document.getElementById('category-filters-big-container');
     updateCategoryFilterContainer()
 
