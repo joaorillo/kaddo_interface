@@ -1,5 +1,7 @@
 const ui = {};
 
+// Test 2025/09/07
+
 window.onbeforeunload = () => window.scrollTo(0, 0);
 
 document.addEventListener('DOMContentLoaded', async () => {
