@@ -1,6 +1,6 @@
 const ui = {};
 
-// Test 2025/09/07 - public
+// Test 2025/09/07 - private
 
 window.onbeforeunload = () => window.scrollTo(0, 0);
 
